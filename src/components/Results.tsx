@@ -21,18 +21,28 @@ export const Results = () => {
     <div style={{width:'80%',marginLeft:'10%'}}>
 
         <hr />
-        Origin To Destiny City = {originToDestinyValView} KMs
-        <hr />
-        Origin To Inter City = {origenToInterValView} KMs
-        <hr />
-        Inter To Destiny City  = {interToDestinyValView} KMs
+
+         <p>Origin To Destiny City = {originToDestinyValView} KMs</p>
+ 
+        {inter !== '' &&<>
+             <hr />
+             <p>Origin To Inter City = {origenToInterValView} KMs</p>
+        </>}
+    
+        {inter !== '' &&<>
+             <hr />
+             <p>Inter To Destiny City  = {interToDestinyValView} KMs</p>
+        </>}
+
         <hr />
 
 
 
          <p>Origen: {origen} </p>
 
-         <p>Inter: {inter}</p>
+         {inter !== '' &&
+            <p>Inter: {inter}</p>
+         }
 
          <p>Destiny: {destiny}</p> 
 

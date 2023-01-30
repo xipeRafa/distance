@@ -10,7 +10,7 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
     let location = useLocation();
 
     const [bool, setBool]=useState(true) 
-    
+
     const [boolInput, setBoolInput]=useState(false) 
 
     const [state, setState]=useState({
@@ -77,11 +77,12 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
             <form onSubmit={onSubmitCities}>
                 <CustomAriaLive cities={cities} handleSelect={handleSelect} label='Origin' />
 
+                <CustomAriaLive cities={cities} handleSelect={handleSelectDestiny} label='Destiny' />
+                
                 {boolInput &&
                     <CustomAriaLive cities={cities} handleSelect={handleSelectInter} label='Inter' />
                 } 
 
-                <CustomAriaLive cities={cities} handleSelect={handleSelectDestiny} label='Destiny' />
                     
 
                 <hr />
@@ -100,7 +101,8 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
 
                 <div className="form-group mb-2">
                     <input
-                         type='number'
+                        type='number'
+                        min='0'
                         className="form-control"
                         placeholder="passengers"
                         name="passengers"
