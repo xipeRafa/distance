@@ -6,7 +6,7 @@ export const citiesSlice = createSlice({
 
     initialState: {
         cities: [],
-        origenToInterValView:[],
+        origenToInterValView:undefined,
         originToDestinyValView:[],
         interToDestinyValView:[],
         infoView:[]

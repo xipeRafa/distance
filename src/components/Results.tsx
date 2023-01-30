@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-
+import { Link } from 'react-router-dom';
 
 
 export const Results = () => {
@@ -7,10 +7,19 @@ export const Results = () => {
   const { infoView, origenToInterValView, originToDestinyValView,
      interToDestinyValView } = useSelector(state => state.citiesSlice)
 
-const { origen, inter, destiny, date, passengers } = infoView
+  const { origen, inter, destiny, date, passengers } = infoView
+
+      if(origenToInterValView===undefined){
+          return(
+          <p style={{width:'80%',marginLeft:'10%'}}>
+              <Link to="/cities" className='mx-5'>Return Cities </Link>
+          </p>
+        )       
+      }
     
   return (
     <div style={{width:'80%',marginLeft:'10%'}}>
+
         <hr />
         Origin To Destiny City = {originToDestinyValView} KMs
         <hr />

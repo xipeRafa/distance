@@ -15,6 +15,7 @@ export const City = () => {
 
     useEffect(() => {
         dataCityGet()
+        localStorage.done='false'
     }, []) 
 
 

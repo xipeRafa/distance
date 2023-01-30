@@ -54,7 +54,7 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
        
        location.pathname = '/results' 
 
-
+        localStorage.done='true'
     }
 
     const handleSelect=(v)=>{

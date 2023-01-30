@@ -7,13 +7,16 @@ export const Nav = () => {
 
         <span className="navbar-brand">
             <i className="fas fa-calendar-alt"></i>&nbsp;
-            latitud
+            Get Distance From
         </span>
 
           <div>
             <span>
-              <Link style={{color:"white"}} to="/cities" className='mx-5'> Cities </Link>
-              <Link style={{color:"white"}} to="/results" className='mx-5'> Results </Link>
+              
+              {localStorage.done === 'true' && <>
+                <Link style={{color:"white"}} to="/cities" className='mx-5'> Cities </Link>
+                <Link style={{color:"white"}} to="/results" className='mx-5'> Results </Link>
+              </>}
             </span>
           </div>
 
