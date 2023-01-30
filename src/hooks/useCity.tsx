@@ -2,15 +2,16 @@
 import { useDispatch, useSelector } from 'react-redux'
 import axiosApi from '../api/api'
 import { errorConsoleCatch } from '../helpers'
-import { citysDataPush, origenToInterValView, originToDestinyValView, 
-  interToDestinyValView, infoView } from  '../store/slices/citysSlice'
+
+import { cityDataPush, origenToInterValView, originToDestinyValView, 
+          interToDestinyValView, infoView } from  '../store/slices/citiesSlice'
 import { somethingWentWrong, somethingWentRigth } from  '../store/slices/alertSlice'
 
 
 
-export const useCitys = () => {
+export const useCity = () => {
 
-  const { citys } = useSelector(state => state.citysSlice)
+  const { cities } = useSelector(state => state.citiesSlice)
 
   const dispatch = useDispatch()
   
@@ -20,15 +21,20 @@ export const useCitys = () => {
       dispatch(somethingWentWrong(['Something Went Wrong', error?.response?.data?.errors[0]?.msg || 'working', 'error']))
   }
 
+  function SweetAlertWrong(error){
+    dispatch(somethingWentWrong([error[0], error[1], 'error']))
+}
+
 
   
-  const dataCitysGet = async () => {
+
+  const dataCityGet = async () => {
     try { 
-      const { data } = await axiosApi.get(`/cities`)
-      dispatch(citysDataPush(data))
+        const { data } = await axiosApi.get(`/cities`)
+        dispatch(cityDataPush(data))
     } catch (error) {
         SweetAlertError(error)
-        errorConsoleCatch('dataCitysGet:',error)
+        errorConsoleCatch('datacityGet:',error)
     }  
   }
 
@@ -69,10 +75,13 @@ export const useCitys = () => {
 
 
   return {
-    dataCitysGet,
+    dataCityGet,
     postCity,
+    SweetAlertWrong,
 
     //states
-    citys,
+    cities,
   }
+
+
 }

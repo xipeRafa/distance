@@ -1,27 +1,27 @@
 
 import { useEffect } from 'react'
 import { PostForm } from './PostForm';
-import { useCitys } from '../../hooks'
+import { useCity } from '../../hooks'
 import { Results } from '../Results';
 import { useLocation } from 'react-router-dom';
 
 
 
-export const Citys = () => {
+export const City = () => {
     let location = useLocation();
 
-    const { dataCitysGet, postCity, citys } = useCitys()
+    const { dataCityGet, postCity, cities, SweetAlertWrong } = useCity()
 
 
     useEffect(() => {
-        dataCitysGet()
+        dataCityGet()
     }, []) 
 
 
     return (
         <>
-        {location.pathname ==='/citys' 
-            ? <PostForm postCity={postCity} citys={citys}/> 
+        {location.pathname ==='/cities' 
+            ? <PostForm postCity={postCity} cities={cities} SweetAlertWrong={SweetAlertWrong}/> 
             : <Results/>}
                 
         </>

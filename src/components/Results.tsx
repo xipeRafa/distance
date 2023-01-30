@@ -5,15 +5,9 @@ import { useSelector } from 'react-redux';
 export const Results = () => {
 
   const { infoView, origenToInterValView, originToDestinyValView,
-     interToDestinyValView } = useSelector(state => state.citysSlice)
+     interToDestinyValView } = useSelector(state => state.citiesSlice)
 
-const {
-  origen,
-  inter,
-  destiny,
-  date,
-  passengers,
-}= infoView
+const { origen, inter, destiny, date, passengers } = infoView
     
   return (
     <div style={{width:'80%',marginLeft:'10%'}}>
@@ -27,15 +21,15 @@ const {
 
 
 
-         <p> Origen: {origen} </p>
+         <p>Origen: {origen} </p>
 
          <p>Inter: {inter}</p>
 
          <p>Destiny: {destiny}</p> 
 
-         <p> Date: {date}</p>
+         <p>Date: {date}</p>
 
-         <p> Passengers: {passengers}</p>
+         <p>Passengers: {passengers}</p>
 
     </div>
   )

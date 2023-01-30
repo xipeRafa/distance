@@ -5,10 +5,12 @@ import { useLocation } from 'react-router-dom';
 
 
 
-export const PostForm = ({postCity, citys}) => {
+export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
 
     let location = useLocation();
+
     const [bool, setBool]=useState(true) 
+
     const [state, setState]=useState({
         origen: '',
         inter: '',
@@ -35,7 +37,7 @@ export const PostForm = ({postCity, citys}) => {
 
   
 
-    const onSubmitCitys = (event: any) => {
+    const onSubmitCities = (event: any) => {
         event.preventDefault();
 
         if(origen.trim() === '' || 
@@ -44,7 +46,7 @@ export const PostForm = ({postCity, citys}) => {
             date.trim() === '' || 
             passengers.trim() === '' ){
                 
-            console.log('empty')
+            SweetAlertWrong(['An Empty Field', 'Select the number of passengers'])
             return
         }
 
@@ -77,12 +79,12 @@ export const PostForm = ({postCity, citys}) => {
 
           
 
-            <form onSubmit={onSubmitCitys}>
-                <CustomAriaLive citys={citys} handleSelect={handleSelect} label='origin' />
+            <form onSubmit={onSubmitCities}>
+                <CustomAriaLive cities={cities} handleSelect={handleSelect} label='origin' />
 
-                <CustomAriaLive citys={citys} handleSelect={handleSelectInter} label='inter' />
+                <CustomAriaLive cities={cities} handleSelect={handleSelectInter} label='inter' />
 
-                <CustomAriaLive citys={citys} handleSelect={handleSelectDestiny} label='destiny' />
+                <CustomAriaLive cities={cities} handleSelect={handleSelectDestiny} label='destiny' />
 
                 <hr />
 

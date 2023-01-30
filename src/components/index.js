@@ -2,6 +2,6 @@
 
 
 
-export * from './citys/Citys'
+export * from './cities/City'
 export * from './Results'
 

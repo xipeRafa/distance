@@ -7,16 +7,16 @@ export interface Option {
 }
 
 
-export default function CustomAriaLive({citys, handleSelect, label}) {
+export default function CustomAriaLive({cities, handleSelect, label}) {
 
-  let citys2 = []
+  let cities2 = []
 
-  for (let index = 0; index < citys.length; index++) {
-      const element = citys[index];
-      citys2.push({label:[element][0]})
+  for (let index = 0; index < cities.length; index++) {
+      const element = cities[index];
+      cities2.push({label:[element][0]})
   }
 
-  const cityOptions: readonly Option[] = citys2
+  const cityOptions: readonly Option[] = cities2
 
 
 

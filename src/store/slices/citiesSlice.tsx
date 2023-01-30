@@ -1,11 +1,11 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
-export const citysSlice = createSlice({
-    name: 'citys',
+export const citiesSlice = createSlice({
+    name: 'cities',
 
     initialState: {
-        citys: [],
+        cities: [],
         origenToInterValView:[],
         originToDestinyValView:[],
         interToDestinyValView:[],
@@ -13,8 +13,8 @@ export const citysSlice = createSlice({
     },
 
     reducers: {
-        citysDataPush: (state, { payload }) => {
-            state.citys = payload;
+        cityDataPush: (state, { payload }) => {
+            state.cities = payload;
         },
 
         origenToInterValView: (state, { payload }) => {
@@ -36,8 +36,8 @@ export const citysSlice = createSlice({
 
 
 
-export const { citysDataPush, origenToInterValView, 
-    originToDestinyValView, interToDestinyValView, infoView } = citysSlice.actions;
+export const { cityDataPush, origenToInterValView, 
+    originToDestinyValView, interToDestinyValView, infoView } = citiesSlice.actions;
 
 
 

@@ -17,7 +17,7 @@ export const Footer = () => {
 
   return (
     <div style={character}> 
-        <p>Hola soy el Footer</p> 
+        <p>Hello I'm the Footer</p> 
     </div>
   )
 }

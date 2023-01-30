@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { clearAlertMessage, somethingWentWrong, somethingWentRigth } from  '../store/slices/alertSlice'
 import Swal from 'sweetalert2';
 import { Nav } from '../cmpsPartial';
-import { Citys, Results } from '../components';
+import { City, Results } from '../components';
 
 
 const AppRouter = () => {
@@ -40,11 +40,11 @@ const AppRouter = () => {
             <Nav />
             <Routes>
 
-                <Route path="/citys" element={<Citys />} />
+                <Route path="/cities" element={<City />} />
                 <Route path="/results" element={<Results />} />
 
 
-                 <Route path="/*" element={<Navigate to="/citys" />} />  
+                 <Route path="/*" element={<Navigate to="/cities" />} />  
 
             </Routes>
         </div>
