@@ -4,18 +4,18 @@ import CustomAriaLive from './CustomAriaLive';
 
 
 
-export const PostForm = ({postUser, citys}) => {
+export const PostForm = ({postCity, citys}) => {
 
     const [state, setState]=useState({
         origen: '',
         inter: '',
         destiny:'',
         date:'',
-        pasajeros:''
+        passengers:''
     })
 console.log('state', state)
 
-    const { date, pasajeros } = state
+    const { date, passengers } = state
 
 
     const handleInputChange = ({ target }) => {
@@ -25,10 +25,10 @@ console.log('state', state)
 
      
 
-    const onSubmitUsers = (event: any) => {
+    const onSubmitCitys = (event: any) => {
         event.preventDefault();
 
-        postUser(state)
+        postCity(state)
 
     }
 
@@ -50,15 +50,17 @@ console.log('state', state)
     <div className="container login-container">
     <div className="row">
         <div className="col-md-6 login-form-1">
-            <h3>latitud</h3>
 
           
 
-            <form onSubmit={onSubmitUsers}>
+            <form onSubmit={onSubmitCitys}>
                 <CustomAriaLive citys={citys} handleSelect={handleSelect} label='origin' />
+
                 <CustomAriaLive citys={citys} handleSelect={handleSelectInter} label='inter' />
+
                 <CustomAriaLive citys={citys} handleSelect={handleSelectDestiny} label='destiny' />
 
+<hr />
 
                 <div className="form-group mb-2">{/*  */}
                     <input
@@ -76,9 +78,9 @@ console.log('state', state)
                     <input
                          type='number'
                         className="form-control"
-                        placeholder="pasajeros"
-                        name="pasajeros"
-                        value={pasajeros}
+                        placeholder="passengers"
+                        name="passengers"
+                        value={passengers}
                         onChange={handleInputChange}
                     />
                 </div>

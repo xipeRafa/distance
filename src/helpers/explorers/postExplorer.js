@@ -14,18 +14,18 @@ export const postExplorer = (saveInFall, {nombre, correo, password}) => {
         'estado': true,
         'google': false,
         'img': "",
-        'rol': "USER_ROLE",
+        'rol': "City_ROLE",
         'toggle': true
     }
 
     
-    let newArr = [...JSON.parse(localStorage.UsersArray), usuario] // concatena
+    let newArr = [...JSON.parse(localStorage.CitysArray), usuario] // concatena
         
     if (saveInFall === false) {
-        localStorage.UsersArray = JSON.stringify([...newArr]) // push UsersArray    
+        localStorage.CitysArray = JSON.stringify([...newArr]) // push CitysArray    
     }
 
-    let newArray = JSON.parse(localStorage.UsersArray).slice(-1)  // real [{}]
+    let newArray = JSON.parse(localStorage.CitysArray).slice(-1)  // real [{}]
 
 
 
@@ -33,11 +33,11 @@ export const postExplorer = (saveInFall, {nombre, correo, password}) => {
 
     if (saveInFall === true) {
         console.log('fall--')
-        let fall = JSON.parse(localStorage.fallUsersArr) 
+        let fall = JSON.parse(localStorage.fallCitysArr) 
     
         fall.push(usuario)
         
-        localStorage.fallUsersArr = JSON.stringify(fall) 
+        localStorage.fallCitysArr = JSON.stringify(fall) 
     }
 
 
@@ -45,8 +45,8 @@ export const postExplorer = (saveInFall, {nombre, correo, password}) => {
 
     
     //-=-=-=-=-=-=-=-=-=- update counter
-    let n = Number(localStorage.UsersTotal) + 1
-    localStorage.UsersTotal = n
+    let n = Number(localStorage.CitysTotal) + 1
+    localStorage.CitysTotal = n
 
 
 

@@ -9,7 +9,7 @@ export const paginationExplorer = (v) => {
     let start = Number(step) - 8;
     let limit = Number(step) 
 
-    let arr = JSON.parse(localStorage.UsersArray).slice(start, limit);
+    let arr = JSON.parse(localStorage.CitysArray).slice(start, limit);
 
     return {arr}
 }

@@ -2,13 +2,13 @@
 
 // const copyOfDynosAndFriends = JSON.parse(JSON.stringify(dynosAndFriends)) */
 
-//     const { newArray } = toggleExplorer({uid}, users.usuarios, 'toggle')
+//     const { newArray } = toggleExplorer({uid}, Citys.usuarios, 'toggle')
 
 
 
 
 
-export const toggleExplorer =(saveInFall=false, objId, usuario, keyToSwitch, usersLSArr, fallUsersArr)=>{
+export const toggleExplorer =(saveInFall=false, objId, usuario, keyToSwitch, CitysLSArr, fallCitysArr)=>{
 
     let objString = JSON.stringify(usuario)
     let objTarget =  JSON.parse(objString)
@@ -18,24 +18,24 @@ export const toggleExplorer =(saveInFall=false, objId, usuario, keyToSwitch, use
 
     if (saveInFall) {
         
-        let some = fallUsersArr.some(el => el.uid === objTarget.uid)
+        let some = fallCitysArr.some(el => el.uid === objTarget.uid)
         
         if(!some){ 
-            fallUsersArr.push(objTarget)
-            localStorage.fallUsersArr = JSON.stringify(fallUsersArr) 
+            fallCitysArr.push(objTarget)
+            localStorage.fallCitysArr = JSON.stringify(fallCitysArr) 
         } else{
-            let ind = fallUsersArr.findIndex(el => el.uid === objTarget.uid) // true 
-            fallUsersArr.splice(ind, 1, objTarget) // replace
-            localStorage.fallUsersArr = JSON.stringify(fallUsersArr) 
+            let ind = fallCitysArr.findIndex(el => el.uid === objTarget.uid) // true 
+            fallCitysArr.splice(ind, 1, objTarget) // replace
+            localStorage.fallCitysArr = JSON.stringify(fallCitysArr) 
         }
         
     }
     
-    let ind = usersLSArr.findIndex(el => el.uid = objTarget.uid)
-    let newArr = usersLSArr
+    let ind = CitysLSArr.findIndex(el => el.uid = objTarget.uid)
+    let newArr = CitysLSArr
 
     newArr.splice(ind, 1 , objTarget)
-    localStorage.UsersArray = JSON.stringify(newArr) 
+    localStorage.CitysArray = JSON.stringify(newArr) 
     
     
     return { objTarget }  

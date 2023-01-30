@@ -7,7 +7,7 @@
 
 
 
-export function editExplorer(saveInFall=false, objId, fallUsersArr, array){
+export function editExplorer(saveInFall=false, objId, fallCitysArr, array){
 
 
      const arrString = JSON.stringify(array)
@@ -35,22 +35,22 @@ export function editExplorer(saveInFall=false, objId, fallUsersArr, array){
      } 
 
 
-      localStorage.UsersArray = JSON.stringify(newArray) //try
+      localStorage.CitysArray = JSON.stringify(newArray) //try
 
 
      
      
       if (saveInFall) {
 
-         let some = fallUsersArr.some(el => el.uid === objTarget.uid) //catch
+         let some = fallCitysArr.some(el => el.uid === objTarget.uid) //catch
 
          if(!some){ // no existe
-            fallUsersArr.push(objTarget)  
-            localStorage.fallUsersArr = JSON.stringify(fallUsersArr)  
+            fallCitysArr.push(objTarget)  
+            localStorage.fallCitysArr = JSON.stringify(fallCitysArr)  
          }else{
-            let ind = fallUsersArr.findIndex(el => el.uid === objTarget.uid) // true
-            fallUsersArr.splice(ind, 1, objTarget) // replace
-            localStorage.fallUsersArr = JSON.stringify(fallUsersArr)
+            let ind = fallCitysArr.findIndex(el => el.uid === objTarget.uid) // true
+            fallCitysArr.splice(ind, 1, objTarget) // replace
+            localStorage.fallCitysArr = JSON.stringify(fallCitysArr)
          }
 
       }
