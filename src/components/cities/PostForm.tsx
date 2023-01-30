@@ -41,7 +41,7 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
         event.preventDefault();
 
         if(origen.trim() === '' || destiny.trim() === '' || date.trim() === '' || passengers.trim() === '' ){
-            SweetAlertWrong(['An Empty Field', 'Type All the Fields'])
+            SweetAlertWrong(['An Empty Field', 'select the number of passengers'])
             return
         }
 
