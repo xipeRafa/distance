@@ -12,7 +12,7 @@ export const Nav = () => {
 
           <div>
             <span>
-              <Link style={{color:"white"}} to="/citys" className='mx-5'> Citys </Link>
+              <Link style={{color:"white"}} to="/citys" className='mx-5'> Cities </Link>
               <Link style={{color:"white"}} to="/results" className='mx-5'> Results </Link>
             </span>
           </div>

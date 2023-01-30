@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom';
 export const PostForm = ({postCity, citys}) => {
 
     let location = useLocation();
-
+    const [bool, setBool]=useState(true) 
     const [state, setState]=useState({
         origen: '',
         inter: '',
@@ -18,18 +18,35 @@ export const PostForm = ({postCity, citys}) => {
     })
 
 
-    const { date, passengers } = state
+    const { origen, inter, destiny, date, passengers } = state
 
 
     const handleInputChange = ({ target }) => {
         const { name, value } = target;
         setState({ ...state, [name]: value })
+
+        if(origen.trim() !== '' || inter.trim() !== '' || 
+        destiny.trim() !== '' || date.trim() !== '' || passengers.trim() !== '' ){
+            console.log('active')
+            setBool(false)
+        }
     }
 
-     
+
+  
 
     const onSubmitCitys = (event: any) => {
         event.preventDefault();
+
+        if(origen.trim() === '' || 
+            inter.trim() === '' || 
+            destiny.trim() === '' || 
+            date.trim() === '' || 
+            passengers.trim() === '' ){
+                
+            console.log('empty')
+            return
+        }
 
         postCity(state)
        
@@ -48,6 +65,7 @@ export const PostForm = ({postCity, citys}) => {
 
     const handleSelectDestiny =(v)=>{
         setState({ ...state, destiny: v.label })
+     
     }
 
 
@@ -66,7 +84,7 @@ export const PostForm = ({postCity, citys}) => {
 
                 <CustomAriaLive citys={citys} handleSelect={handleSelectDestiny} label='destiny' />
 
-<hr />
+                <hr />
 
                 <div className="form-group mb-2">{/*  */}
                     <input
@@ -93,7 +111,7 @@ export const PostForm = ({postCity, citys}) => {
 
 
                 <div className="d-grid gap-2">
-                    <input type="submit" className="btnSubmitPost" value='Submit' />
+                    <input type="submit" className="btnSubmitPost" value='Submit' disabled={bool}/>
                 </div> 
 
 

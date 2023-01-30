@@ -11,7 +11,7 @@ import { Citys, Results } from '../components';
 
 
 const AppRouter = () => {
-/* 
+ 
     const dispatch = useDispatch();
 
     const { sweetAlertMessage } = useSelector(state => state.alertSlice);
@@ -30,7 +30,7 @@ const AppRouter = () => {
         setTimeout(() => {
             dispatch(clearAlertMessage())
         }, 1000);
-    } */
+    } 
 
 
 
