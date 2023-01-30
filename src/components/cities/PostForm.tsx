@@ -54,6 +54,7 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
 
     const handleSelect=(v)=>{
         setState({ ...state, origen: v.label })
+        origen !== '' || destiny !== '' ? setBoolInput(true) : setBoolInput(false)
     }
 
     const handleSelectInter =(v)=>{
@@ -78,7 +79,7 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
                 <CustomAriaLive cities={cities} handleSelect={handleSelect} label='Origin' />
 
                 <CustomAriaLive cities={cities} handleSelect={handleSelectDestiny} label='Destiny' />
-                
+
                 {boolInput &&
                     <CustomAriaLive cities={cities} handleSelect={handleSelectInter} label='Inter' />
                 } 
