@@ -10,7 +10,8 @@ export const citysSlice = createSlice({
 
     reducers: {
         citysDataPush: (state, { payload }) => {
-            console.log(payload)
+            console.log('payload:>>>>', payload)
+            console.log('state.citys:>>>', state.citys)
             state.citys = payload;
         }
     }

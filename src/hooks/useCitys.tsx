@@ -2,8 +2,8 @@
 import { useDispatch, useSelector } from 'react-redux'
 //import axiosApi from '../api/api'
 import { errorConsoleCatch, finderExplorer, postExplorer,
-          paginationExplorer, nextExplorer} from '../helpers'
-import { citysDataPush } from  '../store/slices/citySlice'
+          paginationExplorer, nextExplorer, getDistanceFromLatLonInKm} from '../helpers'
+import { citysDataPush } from  '../store/slices/citysSlice'
 import { somethingWentWrong, somethingWentRigth } from  '../store/slices/alertSlice'
 
 
@@ -20,47 +20,6 @@ export const useCitys = () => {
       dispatch(somethingWentWrong(['Something Went Wrong', error?.response?.data?.errors[0]?.msg || 'working', 'error']))
   }
 
-
-    
- 
-
-
-  const dataCitysGet = async (from=0, limit=8) => {
-  /*     try { 
-           const { data } = await axiosApi.get(`/usuarios/${from}/${limit}`)
-          console.log('dataCitys limit 8:', data)
-          dispatch(CitysDataPush(data))
-          console.log('typeof Data', data)
-
-          const alls = await axiosApi.get(`/usuarios/0/${data.total}`)
-
-          localStorage.CitysArray = JSON.stringify([...alls.data.usuarios, ...fallCitysArr])  
-          localStorage.CitysTotal = data.total  
-        
-          paginationSelect(8) 
-      
-      } catch (error) {
-          dispatch(citysDataPush()) 
-          paginationSelect(8)
-          localStorage.CitysTotal = CitysLSArr.length
-
-          SweetAlertError(error)
-          errorConsoleCatch('dataCitysGet:',error)
-      }  */
-  }
-
-
-
-  
-
-
-
-/* -=-=-=-=-=-=-=-=-=--=- POST =-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- post =-=-=-=-=-=-=-=-=-=-=- */
-/* -=-=-=-=-=-=-=-=-=--=- POST =-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- post =-=-=-=-=-=-=-=-=-=-=- */
-/* -=-=-=-=-=-=-=-=-=--=- POST =-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- post =-=-=-=-=-=-=-=-=-=-=- */
-
-// online solo arriba
-// offline abajo + arriba 
 
 
 let arr = [
@@ -109,18 +68,49 @@ let arr = [
   for (let index = 0; index < arr.length; index++) {
      const element = arr[index][0];
      citysList.push(element)
-    }
+  }
    
-    console.log(citysList)
 
-    let ArrayFlat = arr.flat()
-    console.log(ArrayFlat)
+  let ArrayFlat = arr.flat()
+
+
+  const dataCitysGet = async (from=0, limit=8) => {
+
+    dispatch(citysDataPush(citysList))
+    /*     try { 
+             const { data } = await axiosApi.get(`/usuarios/${from}/${limit}`)
+            console.log('dataCitys limit 8:', data)
+            dispatch(CitysDataPush(data))
+            console.log('typeof Data', data)
+  
+            const alls = await axiosApi.get(`/usuarios/0/${data.total}`)
+  
+            localStorage.CitysArray = JSON.stringify([...alls.data.usuarios, ...fallCitysArr])  
+            localStorage.CitysTotal = data.total  
+          
+            paginationSelect(8) 
+        
+        } catch (error) {
+            dispatch(citysDataPush()) 
+            paginationSelect(8)
+            localStorage.CitysTotal = CitysLSArr.length
+  
+            SweetAlertError(error)
+            errorConsoleCatch('dataCitysGet:',error)
+        }  */
+    }
+
 
   const postCity = async (post) => {
     console.log('post hook:>> ', post);
 
+    const { origen, inter, destiny, date, passengers } = post
 
-    // getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2)
+    let originToDestiny = ArrayFlat.findIndex(el => el === origen)
+    console.log("🚀 ~ file: useCitys.tsx:124 ~ postCity ~ originToDestiny", originToDestiny)
+
+
+    //let originToDestiny = getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2)
 
 
 
