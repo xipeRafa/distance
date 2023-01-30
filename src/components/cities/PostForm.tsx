@@ -10,6 +10,8 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
     let location = useLocation();
 
     const [bool, setBool]=useState(true) 
+    
+    const [boolInput, setBoolInput]=useState(false) 
 
     const [state, setState]=useState({
         origen: '',
@@ -27,9 +29,7 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
         const { name, value } = target;
         setState({ ...state, [name]: value })
 
-        if(origen.trim() !== '' || inter.trim() !== '' || 
-        destiny.trim() !== '' || date.trim() !== '' || passengers.trim() !== '' ){
-            console.log('active')
+        if(origen.trim() !== '' || destiny.trim() !== '' || date.trim() !== '' || passengers.trim() !== '' ){
             setBool(false)
         }
     }
@@ -40,13 +40,8 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
     const onSubmitCities = (event: any) => {
         event.preventDefault();
 
-        if(origen.trim() === '' || 
-            inter.trim() === '' || 
-            destiny.trim() === '' || 
-            date.trim() === '' || 
-            passengers.trim() === '' ){
-                
-            SweetAlertWrong(['An Empty Field', 'Select the number of passengers'])
+        if(origen.trim() === '' || destiny.trim() === '' || date.trim() === '' || passengers.trim() === '' ){
+            SweetAlertWrong(['An Empty Field', 'Type All the Fields'])
             return
         }
 
@@ -67,7 +62,7 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
 
     const handleSelectDestiny =(v)=>{
         setState({ ...state, destiny: v.label })
-     
+        origen !== '' || destiny !== '' ? setBoolInput(true) : setBoolInput(false)
     }
 
 
@@ -75,16 +70,19 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
   return (
     <div className="container login-container">
     <div className="row">
-        <div className="col-md-6 login-form-1">
+        <div className="col-md-6 login-form-1 mt-4">
 
           
 
             <form onSubmit={onSubmitCities}>
-                <CustomAriaLive cities={cities} handleSelect={handleSelect} label='origin' />
+                <CustomAriaLive cities={cities} handleSelect={handleSelect} label='Origin' />
 
-                <CustomAriaLive cities={cities} handleSelect={handleSelectInter} label='inter' />
+                {boolInput &&
+                    <CustomAriaLive cities={cities} handleSelect={handleSelectInter} label='Inter' />
+                } 
 
-                <CustomAriaLive cities={cities} handleSelect={handleSelectDestiny} label='destiny' />
+                <CustomAriaLive cities={cities} handleSelect={handleSelectDestiny} label='Destiny' />
+                    
 
                 <hr />
 

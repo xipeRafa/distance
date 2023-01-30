@@ -21,7 +21,6 @@ const AppRouter = () => {
            Swal.fire(sweetAlertMessage[0], sweetAlertMessage[1], sweetAlertMessage[2]);
            defaultAlert()
        } 
-       console.log('sweetAlertMessage', sweetAlertMessage)
     }, [sweetAlertMessage])  
 
 
