@@ -1,10 +1,13 @@
-import {useEffect, useState} from 'react'
+import { useState } from 'react'
 import './postForm.css';
 import CustomAriaLive from './CustomAriaLive';
+import { useLocation } from 'react-router-dom';
 
 
 
 export const PostForm = ({postCity, citys}) => {
+
+    let location = useLocation();
 
     const [state, setState]=useState({
         origen: '',
@@ -13,7 +16,7 @@ export const PostForm = ({postCity, citys}) => {
         date:'',
         passengers:''
     })
-console.log('state', state)
+
 
     const { date, passengers } = state
 
@@ -29,6 +32,9 @@ console.log('state', state)
         event.preventDefault();
 
         postCity(state)
+       
+       location.pathname = '/results' 
+
 
     }
 

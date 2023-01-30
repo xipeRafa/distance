@@ -2,77 +2,30 @@
 import { useEffect } from 'react'
 import { PostForm } from './PostForm';
 import { useCitys } from '../../hooks'
+import { Results } from '../Results';
+import { useLocation } from 'react-router-dom';
+
 
 
 export const Citys = () => {
+    let location = useLocation();
 
-    const CitysListCSS = {
-        display: "block",
-        border: "2px solid salmon",
-        padding: "10px",
-        width: "400px",
-        marginLeft: "50px",
-        marginBottom: "10px",
-        backgroundColor: "lightgray"
-    }
- 
+    const { dataCitysGet, postCity, citys } = useCitys()
 
 
-
-     /*    let lat = []
-        for (let index = 0; index < arr.length; index++) {
-            const element = arr[index][1];
-            lat.push(element)
-        }
-        
-        let lon = []
-        for (let index = 0; index < arr.length; index++) {
-            const element = arr[index][2];
-            lon.push(element)
-        }  */
-
-
-        
-
-
-
-
-    const { dataCitysGet, postCity,  CitysFinder, paginationSelect, citys } = useCitys()
-
-
-
-     useEffect(() => {
+    useEffect(() => {
         dataCitysGet()
     }, []) 
 
 
-    const handlePaginationSelect=(ps)=>{
-
-        let a = ArrayFlat.findIndex(el => el === ps)
-        let lat = ArrayFlat[a+1]
-        let lon = ArrayFlat[a+2]
-
-        console.log('lat,lon', lat,lon)
-
-       /*  let step = Number(ps)
-        paginationSelect(step) */
-    }
-
-
     return (
-        <div>
-               
-          
-         
-
-            <PostForm postCity={postCity} citys={citys}/>
-
-         
-
-
-
-
-
-        </div>
+        <>
+        {location.pathname ==='/citys' 
+            ? <PostForm postCity={postCity} citys={citys}/> 
+            : <Results/>}
+                
+        </>
     )
+
+
 }

@@ -3,8 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 //import axiosApi from '../api/api'
 import { errorConsoleCatch, finderExplorer, postExplorer,
           paginationExplorer, nextExplorer, getDistanceFromLatLonInKm} from '../helpers'
-import { citysDataPush } from  '../store/slices/citysSlice'
+import { citysDataPush, origenToInterValView, originToDestinyValView, 
+  interToDestinyValView, infoView } from  '../store/slices/citysSlice'
 import { somethingWentWrong, somethingWentRigth } from  '../store/slices/alertSlice'
+
+
+
 
 
 
@@ -62,7 +66,8 @@ let arr = [
 
   ['Nîmes', 43.836699, 4.360054],
 
-  ['Aix-en-Provence', 43.529742, 5.447427],]
+  ['Aix-en-Provence', 43.529742, 5.447427]
+]
 
   let citysList = []
   for (let index = 0; index < arr.length; index++) {
@@ -100,20 +105,39 @@ let arr = [
         }  */
     }
 
-
   const postCity = async (post) => {
-    console.log('post hook:>> ', post);
-
-    const { origen, inter, destiny, date, passengers } = post
-
-    let originToDestiny = ArrayFlat.findIndex(el => el === origen)
-    console.log("🚀 ~ file: useCitys.tsx:124 ~ postCity ~ originToDestiny", originToDestiny)
 
 
-    //let originToDestiny = getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2)
+      const { origen, inter, destiny, date, passengers } = post
+
+      let originToDestiny = ArrayFlat.findIndex(el => el === origen)
+      let latitudOrigen = ArrayFlat[originToDestiny +1]
+      let longitudOrigen = ArrayFlat[originToDestiny +2]
+
+      let interToDestiny = ArrayFlat.findIndex(el => el === inter)
+      let latitudInter = ArrayFlat[interToDestiny +1]
+      let longitudInter = ArrayFlat[interToDestiny +2]
+
+      let toDestiny = ArrayFlat.findIndex(el => el === destiny)
+      let latitudDestiny = ArrayFlat[toDestiny +1]
+      let longitudDestiny = ArrayFlat[toDestiny +2]
 
 
 
+      let origenToInterVal = getDistanceFromLatLonInKm(latitudOrigen, longitudOrigen, latitudInter, longitudInter)  
+
+      let originToDestinyVal = getDistanceFromLatLonInKm(latitudOrigen, longitudOrigen, latitudDestiny, longitudDestiny)
+
+      let interToDestinyVal = getDistanceFromLatLonInKm(latitudInter, longitudInter, latitudDestiny, longitudDestiny)
+
+
+      dispatch(origenToInterValView(origenToInterVal))
+
+      dispatch(originToDestinyValView(originToDestinyVal))
+
+      dispatch(interToDestinyValView(interToDestinyVal))
+
+      dispatch(infoView(post))
 
    /*    try {
           const { newArray } = postExplorer(false, { nombre, correo, password })
