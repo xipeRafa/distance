@@ -108,29 +108,13 @@ export const Users = () => {
 
     return (
         <div>
-            <h3 className='mx-5'>Usuarios</h3>
-     {/*        <div className='mx-5 my-2'>
-
-                <div>{`Usuarios del: ${localStorage.step-7} para ${localStorage.step}, en Total: ${localStorage.UsersTotal}`}</div>
-
-                <input type="button" value='Previous' onClick={()=>paginationNext(false)} className='btn btn-secondary'/>
-
-                {JSON.parse(localStorage.UsersArray)?.map((el, i) => (
-                    i < localStorage.UsersTotal/8 &&
-                        <input key={i+'<^>'} type="button" value={i+1} onClick={()=>handlePaginationSelect((i+1)*8)} className='btn btn-secondary'/> 
-                ))}
-           
-                <input type="button" value='Next' onClick={()=>paginationNext(true)} className='btn btn-secondary'/>   
-                </div>
-*/
                
-          }
+          
          
 
             <PostForm postUser={postUser} citys={citys}/>
 
-            <input type="search" className='form-control col-12 my-2 mx-5' 
-            style={{width:'200px'}} placeholder='Buscar Usuarios' onChange={(e)=> usersFinder(e.target.value.trim())} />
+         
 
 
 

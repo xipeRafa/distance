@@ -1,5 +1,4 @@
 .login-container {
-    margin-top: 15%;
     display: flex;
     justify-content: center;
 }
@@ -80,12 +79,3 @@ a:hover {
     color: rgb(37, 34, 34);
 }
 
-.fix{
-    position: fixed;
-    top: 140px; left: 290px!important;
-}
-
-.editButton{
-    background-color: #fff;
-    color: #cc0030;
-}

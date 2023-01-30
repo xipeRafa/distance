@@ -8,14 +8,14 @@ export const PostForm = ({postUser, citys}) => {
 
     const [state, setState]=useState({
         origen: '',
-        intermedia: '',
-        destino:'',
-        fecha:'',
-        pasajeros:'0'
+        inter: '',
+        destiny:'',
+        date:'',
+        pasajeros:''
     })
 console.log('state', state)
 
-    const { origen, intermedia, destino, fecha, pasajeros } = state
+    const { date, pasajeros } = state
 
 
     const handleInputChange = ({ target }) => {
@@ -33,60 +33,40 @@ console.log('state', state)
     }
 
     const handleSelect=(v)=>{
-        state.origen=v.label
         setState({ ...state, origen: v.label })
+    }
+
+    const handleSelectInter =(v)=>{
+        setState({ ...state, inter: v.label })
+    }
+
+    const handleSelectDestiny =(v)=>{
+        setState({ ...state, destiny: v.label })
     }
 
 
 
   return (
-    <div className="container login-container fix">
+    <div className="container login-container">
     <div className="row">
-        <div className="col-md-6 login-form-1 fixed">
+        <div className="col-md-6 login-form-1">
             <h3>latitud</h3>
 
+          
+
             <form onSubmit={onSubmitUsers}>
-
-            <CustomAriaLive citys={citys} handleSelect={handleSelect}/>
-
-                <div className="form-group mb-2">
-                    <input
-                        className="form-control"
-                        placeholder="origen"
-                        name="origen"
-                        value={origen}
-                        onChange={handleInputChange}
-                    />
-                </div>
-
-                <div className="form-group mb-2">
-                    <input
-                        className="form-control"
-                        placeholder="intermedia"
-                        name="intermedia"
-                        value={intermedia}
-                        onChange={handleInputChange}
-                    />
-                </div>
-                
-
-                <div className="form-group mb-2">
-                    <input
-                        className="form-control"
-                        placeholder="destino"
-                        name="destino"
-                        value={destino}
-                        onChange={handleInputChange}
-                    />
-                </div>
+                <CustomAriaLive citys={citys} handleSelect={handleSelect} label='origin' />
+                <CustomAriaLive citys={citys} handleSelect={handleSelectInter} label='inter' />
+                <CustomAriaLive citys={citys} handleSelect={handleSelectDestiny} label='destiny' />
 
 
                 <div className="form-group mb-2">{/*  */}
                     <input
+                        type='date'
                         className="form-control"
-                        placeholder="fecha"
-                        name="fecha"
-                        value={fecha}
+                        placeholder="date"
+                        name="date"
+                        value={date}
                         onChange={handleInputChange}
                     />
                 </div>
@@ -94,6 +74,7 @@ console.log('state', state)
 
                 <div className="form-group mb-2">
                     <input
+                         type='number'
                         className="form-control"
                         placeholder="pasajeros"
                         name="pasajeros"

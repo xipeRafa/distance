@@ -20,9 +20,9 @@ export const useUsers = () => {
       dispatch(somethingWentWrong(['Something Went Wrong', error?.response?.data?.errors[0]?.msg || 'working', 'error']))
   }
 
-  let usersLSArr =     JSON.parse(localStorage.UsersArray ) 
+/*   let usersLSArr =     JSON.parse(localStorage.UsersArray ) 
   let fallUsersArr =   JSON.parse(localStorage.fallUsersArr )
-  let UserDeletedArr = JSON.parse(localStorage.UserDeletedArr) 
+  let UserDeletedArr = JSON.parse(localStorage.UserDeletedArr)  */
  
 
 
