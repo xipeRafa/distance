@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import './postForm.css';
 import CustomAriaLive from './CustomAriaLive';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 
 export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
 
     let location = useLocation();
+    let navigateTo = useNavigate()
 
     const [bool, setBool]=useState(true) 
 
@@ -46,8 +47,10 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
         }
 
         postCity(state)
-       
-       location.pathname = '/results' 
+
+        setTimeout(() => {
+           navigateTo('/results')
+        }, 1000);
 
         localStorage.done='true'
     }
