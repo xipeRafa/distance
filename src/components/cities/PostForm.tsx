@@ -1,20 +1,31 @@
 import { useState } from 'react'
 import './postForm.css';
 import CustomAriaLive from './CustomAriaLive';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
+type PropsPostForm = { 
+    postCity: Function,
+    cities:String[], 
+    SweetAlertWrong:Function 
+}
 
+export const PostForm = ({postCity, cities, SweetAlertWrong}:PropsPostForm ) => {
 
-export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
-
-    let location = useLocation();
     let navigateTo = useNavigate()
 
-    const [bool, setBool]=useState(true) 
+    const [bool, setBool]=useState<boolean>(true) 
 
-    const [boolInput, setBoolInput]=useState(false) 
+    const [boolInput, setBoolInput]=useState<boolean>(false) 
 
-    const [state, setState]=useState({
+    type State = {
+        origen:string,
+        inter:string,
+        destiny:string,
+        date:string,
+        passengers:string
+    }
+
+    const [state, setState]=useState<State>({
         origen: '',
         inter: '',
         destiny:'',
@@ -55,16 +66,20 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}) => {
         localStorage.done='true'
     }
 
-    const handleSelect=(v)=>{
+    type INP = {
+        label:string
+    }
+
+    const handleSelect=(v:INP)=>{
         setState({ ...state, origen: v.label })
         origen !== '' || destiny !== '' ? setBoolInput(true) : setBoolInput(false)
     }
 
-    const handleSelectInter =(v)=>{
+    const handleSelectInter =(v:INP)=>{
         setState({ ...state, inter: v.label })
     }
 
-    const handleSelectDestiny =(v)=>{
+    const handleSelectDestiny =(v:INP)=>{
         setState({ ...state, destiny: v.label })
         origen !== '' || destiny !== '' ? setBoolInput(true) : setBoolInput(false)
     }
