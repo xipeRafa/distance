@@ -1,6 +1,6 @@
 
 
-export const Footer = () => {
+export const Footer = ():JSX.Element => {
 
     const character = {
 

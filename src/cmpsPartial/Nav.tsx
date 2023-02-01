@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export const Nav = () => {
+export const Nav = ():JSX.Element => {
 
   return (
     <div className="navbar navbar-dark bg-black mb-4 px-4">

@@ -5,7 +5,7 @@ import { useCity } from '../../hooks'
 
 
 
-export const City = () => {
+export const City = ():JSX.Element => {
 
     const { dataCityGet, postCity, cities, SweetAlertWrong } = useCity()
 

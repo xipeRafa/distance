@@ -9,7 +9,7 @@ type PropsPostForm = {
     SweetAlertWrong:Function 
 }
 
-export const PostForm = ({postCity, cities, SweetAlertWrong}:PropsPostForm ) => {
+export const PostForm = ({postCity, cities, SweetAlertWrong}:PropsPostForm):JSX.Element => {
 
     let navigateTo = useNavigate()
 
@@ -34,22 +34,28 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}:PropsPostForm ) => 
     })
 
 
-    const { origen, inter, destiny, date, passengers } = state
+    const { origen, destiny, date, passengers } = state
 
-
-    const handleInputChange = ({ target }) => {
-        const { name, value } = target;
+    type Target = {
+        target:React.FormEvent<HTMLFormElement>
+        name:string
+        value:string
+    }
+    
+    const handleInputChange = (target:Target): void => {
+        const { name, value } = target.target;
         setState({ ...state, [name]: value })
-
+        
         if(origen.trim() !== '' || destiny.trim() !== '' || date.trim() !== '' || passengers.trim() !== '' ){
             setBool(false)
         }
     }
-
-
+    
+    
+    type FormElement = React.FormEvent<HTMLFormElement>
   
 
-    const onSubmitCities = (event: any) => {
+    const onSubmitCities = (event:FormElement): void => {
         event.preventDefault();
 
         if(origen.trim() === '' || destiny.trim() === '' || date.trim() === '' || passengers.trim() === '' ){
@@ -66,23 +72,28 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}:PropsPostForm ) => 
         localStorage.done='true'
     }
 
+
+
+
     type INP = {
         label:string
     }
 
-    const handleSelect=(v:INP)=>{
+    const handleSelect = (v:INP): void => {
         setState({ ...state, origen: v.label })
         origen !== '' || destiny !== '' ? setBoolInput(true) : setBoolInput(false)
     }
 
-    const handleSelectInter =(v:INP)=>{
-        setState({ ...state, inter: v.label })
-    }
-
-    const handleSelectDestiny =(v:INP)=>{
+    const handleSelectDestiny = (v:INP): void => {
         setState({ ...state, destiny: v.label })
         origen !== '' || destiny !== '' ? setBoolInput(true) : setBoolInput(false)
     }
+    
+
+    const handleSelectInter = (v:INP): void => {
+        setState({ ...state, inter: v.label })
+    }
+
 
 
 
