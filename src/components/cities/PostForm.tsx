@@ -36,10 +36,13 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}:PropsPostForm):JSX.
 
     const { origen, destiny, date, passengers } = state
 
+
+
     type Target = {
-        target:React.FormEvent<HTMLFormElement>
-        name:string
-        value:string
+        target:{
+            name:string
+            value:string
+        }
     }
     
     const handleInputChange = (target:Target): void => {
