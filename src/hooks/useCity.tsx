@@ -21,8 +21,8 @@ export const useCity = () => {
       dispatch(somethingWentWrong(['Something Went Wrong', error?.response?.data?.errors[0]?.msg || 'working', 'error']))
   }
 
-  function SweetAlertWrong(error){
-    dispatch(somethingWentWrong([error[0], error[1], 'error']))
+  function SweetAlert(error){
+    dispatch(somethingWentWrong([error[0], error[1], error[2]]))
 }
 
 
@@ -39,11 +39,13 @@ export const useCity = () => {
   }
 
 
+type PostDTO ={
+
+}
 
 
 
-
-  const postCity = async (post) => {
+  const postCity = async (post:PostDTO) => {
 
     try {
 
@@ -77,7 +79,7 @@ export const useCity = () => {
   return {
     dataCityGet,
     postCity,
-    SweetAlertWrong,
+    SweetAlert,
 
     //states
     cities,

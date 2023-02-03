@@ -6,10 +6,10 @@ import { useNavigate } from 'react-router-dom';
 type PropsPostForm = { 
     postCity: Function,
     cities:String[], 
-    SweetAlertWrong:Function 
+    SweetAlert:Function 
 }
 
-export const PostForm = ({postCity, cities, SweetAlertWrong}:PropsPostForm):JSX.Element => {
+export const PostForm = ({postCity, cities, SweetAlert}:PropsPostForm):JSX.Element => {
 
     let navigateTo = useNavigate()
 
@@ -32,6 +32,7 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}:PropsPostForm):JSX.
         date:'',
         passengers:''
     })
+    console.log('state :>> ', state);
 
 
     const { origen, destiny, date, passengers } = state
@@ -45,14 +46,6 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}:PropsPostForm):JSX.
         }
     }
     
-    const handleInputChange = (target:Target): void => {
-        const { name, value } = target.target;
-        setState({ ...state, [name]: value })
-        
-        if(origen.trim() !== '' || destiny.trim() !== '' || date.trim() !== '' || passengers.trim() !== '' ){
-            setBool(false)
-        }
-    }
     
     
     type FormElement = React.FormEvent<HTMLFormElement>
@@ -62,10 +55,15 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}:PropsPostForm):JSX.
         event.preventDefault();
 
         if(origen.trim() === '' || destiny.trim() === '' || date.trim() === '' || passengers.trim() === '' ){
-            SweetAlertWrong(['An Empty Field', 'select the number of passengers'])
+            SweetAlert(['An Empty Field'])
             return
         }
 
+        if( passengers.includes('e') || passengers.includes('.') || Number(passengers)<1 || Number(passengers)>100){
+            SweetAlert(['no mopre that 100 or lees than 0', 'select the Right Number of passengers', 'warning'])
+            return
+        }
+     
         postCity(state)
 
         setTimeout(() => {
@@ -74,6 +72,24 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}:PropsPostForm):JSX.
 
         localStorage.done='true'
     }
+
+
+
+
+    const handleInputChange = (target:Target): void => {
+        const { name, value } = target.target;
+        setState({ ...state, [name]: value })
+        
+        if(origen.trim() !== '' && destiny.trim() !== '' && date.trim() !== ''){
+            setBool(false)
+           
+        }
+        if( Number(passengers)>100 ){
+            SweetAlert(['no mopre that 100.', 'select the Right Number of passengers', 'warning'])
+        }
+    }
+
+
 
 
 
@@ -113,7 +129,7 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}:PropsPostForm):JSX.
                 <CustomAriaLive cities={cities} handleSelect={handleSelectDestiny} label='Destiny' />
 
                 {boolInput &&
-                    <CustomAriaLive cities={cities} handleSelect={handleSelectInter} label='Inter' />
+                    <CustomAriaLive cities={cities} handleSelect={handleSelectInter} label='Inter (opcional)' />
                 } 
 
                     
@@ -131,22 +147,24 @@ export const PostForm = ({postCity, cities, SweetAlertWrong}:PropsPostForm):JSX.
                     />
                 </div>
 
-
+                {boolInput &&
                 <div className="form-group mb-2">
                     <input
                         type='number'
-                        min='0'
+                        min='1'
+                        max='100' 
+                        //step="any"
                         className="form-control"
                         placeholder="passengers"
                         name="passengers"
                         value={passengers}
                         onChange={handleInputChange}
                     />
-                </div>
+                </div>}
 
 
                 <div className="d-grid gap-2">
-                    <input type="submit" className="btnSubmitPost" value='Submit' disabled={bool}/>
+                    <input type="submit" className={!bool ? "btnSubmitPost" : "btnSubmitPost2"} value={bool ? 'Disabled':'Send'} disabled={bool}/>
                 </div> 
 
 

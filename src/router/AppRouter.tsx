@@ -18,6 +18,7 @@ const AppRouter = () => {
 
      useEffect(() => {
         if (sweetAlertMessage !== undefined) {
+            console.log('sweetAlertMessage', sweetAlertMessage)
            Swal.fire(sweetAlertMessage[0], sweetAlertMessage[1], sweetAlertMessage[2]);
            defaultAlert()
        } 

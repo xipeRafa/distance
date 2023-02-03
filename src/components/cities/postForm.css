@@ -29,6 +29,13 @@
 }
 
 
+.login-form-1 .btnSubmitPost2 {
+    margin-top: 10px;
+    color: #fff;
+    background-color: lightgray;
+}
+
+
 .login-form-1 .ForgetPwd {
     color: #0062cc;
     font-weight: 600;
