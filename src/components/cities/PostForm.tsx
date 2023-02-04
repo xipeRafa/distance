@@ -8,9 +8,10 @@ type PropsPostForm = {
     cities:any, 
     SweetAlert:Function 
     postCitySearch:Function
+    dateAndPassengersPost:Function
 }
 
-export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPostForm):JSX.Element => {
+export const PostForm = ({postCity, cities, SweetAlert, postCitySearch,dateAndPassengersPost}:PropsPostForm):JSX.Element => {
 
     let navigateTo = useNavigate()
 
@@ -24,7 +25,7 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
         inter1:string,
         destiny:string
     } 
-    type State2 = {
+    type DateAndPassengers = {
         date:string,
         passengers:string
     }
@@ -36,7 +37,7 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
     })
 
 
-    const [state2, setState2]=useState<State2>({
+    const [dateAndPassengers, setDateAndPassengers]=useState<DateAndPassengers>({
         date:'',
         passengers:''
     })
@@ -44,7 +45,7 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
 
 
     const { origen, destiny, inter1 } = state
-    const { date, passengers } = state2
+    const { date, passengers } = dateAndPassengers
 
     //2023-02-10
     //var birthday = new Date(1994, 12, 10)
@@ -80,6 +81,7 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
         }  
      
         postCity(state)
+        dateAndPassengersPost(dateAndPassengers)
 
         setTimeout(() => {
            navigateTo('/results')
@@ -103,7 +105,7 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
         const { name, value } = target.target;
       
         if(name === 'date' || name === 'passengers'){ 
-            setState2({ ...state2, [name]: value })
+            setDateAndPassengers({ ...dateAndPassengers, [name]: value })
         }
 
         if(name !== 'date' && name !== 'passengers'){ 

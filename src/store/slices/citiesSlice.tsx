@@ -6,28 +6,20 @@ export const citiesSlice = createSlice({
 
     initialState: {
         cities: [],
-        origenToInterValView:undefined,
-        originToDestinyValView:[],
-        interToDestinyValView:[],
-        infoView:[]
+        originToDestinyValView:undefined,
+        dateAndPassengersView:undefined,
+        infoView:[],
     },
 
     reducers: {
         cityDataPush: (state, { payload }) => {
             state.cities = payload;
-            console.log('state.cities :>> ', state.cities);
         },
-
-        origenToInterValView: (state, { payload }) => {
-            state.origenToInterValView = payload;
-        },
-
         originToDestinyValView: (state, { payload }) => {
             state.originToDestinyValView = payload;
         },
-
-        interToDestinyValView: (state, { payload }) => {
-            state.interToDestinyValView = payload;
+        dateAndPassengersView: (state, { payload }) => {
+            state.dateAndPassengersView = payload;  
         },
         infoView:(state, {payload}) => {
             state.infoView = payload
@@ -37,8 +29,8 @@ export const citiesSlice = createSlice({
 
 
 
-export const { cityDataPush, origenToInterValView, 
-    originToDestinyValView, interToDestinyValView, infoView } = citiesSlice.actions;
+export const { cityDataPush, originToDestinyValView, 
+    infoView, dateAndPassengersView } = citiesSlice.actions;
 
 
 

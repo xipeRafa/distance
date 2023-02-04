@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import axiosApi from '../api/api'
 import { errorConsoleCatch } from '../helpers'
 
-import { cityDataPush, origenToInterValView, originToDestinyValView, 
-          interToDestinyValView, infoView } from  '../store/slices/citiesSlice'
+import { cityDataPush,originToDestinyValView, dateAndPassengersView,
+           infoView } from  '../store/slices/citiesSlice'
 import { somethingWentWrong, somethingWentRigth } from  '../store/slices/alertSlice'
 
 
@@ -55,7 +55,6 @@ const postCitySearch = async (finding:string) => {
 
         const {data}  = await axiosApi.post('/cities/search', {finding})
         dispatch(cityDataPush(data))
-        console.log('dataSearch', data)
     }catch (error) {  
       console.log('errorSearch :>> ', error);
         SweetAlertError(error)
@@ -63,28 +62,28 @@ const postCitySearch = async (finding:string) => {
     }  
 }
 
+function dateAndPassengersPost(dp){
+  dispatch(dateAndPassengersView(dp))
+}
+
 
 
 const postCity = async (post:PostDTO) => {
 
-  let keys = Object.keys(post)
-  console.log('keys :>> ', keys);
-console.log('post', post)
     try {
 
-          /* const { origen, inter, destiny, date, passengers } = post */
+          const { origen, destiny } = post 
 
-          await axiosApi.post('/cities', post)
-/* 
-          dispatch(origenToInterValView(data.origenToInterVal))
+          const {data} = await axiosApi.post('/cities', post)
+
+
 
           dispatch(originToDestinyValView(data.originToDestinyVal))
 
-          dispatch(interToDestinyValView(data.interToDestinyVal))
 
           dispatch(infoView(post)) 
 
-          dispatch(somethingWentRigth(['Good Travel', origen + ' to ' + destiny, 'success'])) */
+          dispatch(somethingWentRigth(['Good Travel', origen + ' to ' + destiny, 'success'])) 
   
       } catch (error) {  
           SweetAlertError(error)
@@ -104,6 +103,7 @@ console.log('post', post)
     postCity,
     SweetAlert,
     postCitySearch,
+    dateAndPassengersPost,
 
     //states
     cities,
