@@ -21,22 +21,30 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
 
     type State = {
         origen:string,
-        inter:string,
-        destiny:string,
+        inter1:string,
+        destiny:string
+    } 
+    type State2 = {
         date:string,
         passengers:string
-    } 
+    }
 
     const [state, setState]=useState<State>({
         origen: '',
-        inter: '',
         destiny:'',
+        inter1: '',
+    })
+
+
+    const [state2, setState2]=useState<State2>({
         date:'',
         passengers:''
     })
 
 
-    const { origen, destiny, date, inter, passengers } = state
+
+    const { origen, destiny, inter1 } = state
+    const { date, passengers } = state2
 
     //2023-02-10
     //var birthday = new Date(1994, 12, 10)
@@ -93,9 +101,14 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
 
     const handleInputChange = (target:Target): void => {
         const { name, value } = target.target;
-        setState({ ...state, [name]: value })
+      
+        if(name === 'date' || name === 'passengers'){ 
+            setState2({ ...state2, [name]: value })
+        }
 
-        if(name !== 'date' && name !== 'passengers'){  // run jun in cities
+        if(name !== 'date' && name !== 'passengers'){ 
+            setState({ ...state, [name]: value })
+
             if(value.length > 3 && cities.length === 0){
                 setState({ ...state, [name]: error })
             }
@@ -103,11 +116,13 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
                 postCitySearch(value)
             }
         }
-        
-        if(origen.trim() !== '' && destiny.trim() !== ''){
-            setBool(false) 
-            setBoolInput(true)
-        }
+
+        setTimeout(() => {    
+            if(origen.trim() !== '' && destiny.trim() !== ''){
+                setBool(false) 
+                setBoolInput(true)
+            }
+        }, 400);
     }
 
     const [inters, setInters]=useState([])
@@ -115,19 +130,21 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
 
      const addObject =()=>{
         let keys = Object.keys(state)
-        let newK = 'inter'.concat(keys.length -3)
+        let newK = 'inter'.concat(keys.length -1)
         state[newK] = ''
 
         setInters([...inters, [newK]])
     } 
 
-console.log('state', inters.flat())
-console.log('state', state)
+
   return (
     <div className="container login-container">
     <div className="row">
         <div className="col-md-6 login-form-1 mt-4">
 
+            { boolInput && <>
+                <p><button onClick={addObject} className='btn btn-info'>+</button>{' '}add more inter cities </p>
+            </>} 
           
 
             <form onSubmit={onSubmitCities}>
@@ -146,7 +163,7 @@ console.log('state', state)
                     autoComplete='off'
                 />
                 <span className='text-danger'>
-                    {origen.length > 3 && cities.length === 0 ? (origen === 'error no coincidences') && origen : ''}
+                    {origen.length > 3 && cities.length === 0 ? (origen === 'city never can not find it') && origen : ''}
                 </span>
 
                 <datalist id="origen" >
@@ -181,34 +198,35 @@ console.log('state', state)
                 </datalist>
 
 
-
+                { boolInput && <>
                 <label>Select your city Inter (optional) </label>
 
                 <input 
-                    list="inter" 
+                    list="inter1" 
                     onChange={handleInputChange} 
                     className="form-control mb-2" 
-                    name='inter' 
-                    placeholder="inter"
+                    name='inter1' 
+                    placeholder="inter1"
                     autoComplete='off'
                 />
-                 <span className='text-danger'>
-                    {inter.length > 3 && cities.length === 0 ? (inter === 'city never can not find it') && inter : ''}
+                <span className='text-danger'>
+                    {inter1.length > 3 && cities.length === 0 ? (inter1 === 'city never can not find it') && inter1 : ''}
                 </span>
 
-                <datalist id="inter" >
+                <datalist id="inter1" >
                         {cities.map((city, key) =>
                             <option key={key} value={city} />
                         )}  
                 </datalist>
 
 
-                { boolInput && <>
-                <p><button onClick={addObject} className='btn btn-info'>+</button> </p>
 
-                        {inters.flat().map((el, i) => (
-                            <div key={i+'@#$'}>
-                            <input 
+                    
+                {inters.flat().map((el, i) => (
+                    <div key={i+'@#$'}>
+                        <label>Select your city Inter {el} </label>
+
+                        <input 
                             list={el} 
                             onChange={handleInputChange} 
                             className="form-control mb-2" 
@@ -216,18 +234,20 @@ console.log('state', state)
                             placeholder={el}
                             autoComplete='off'
                         />
-                          <span className='text-danger'>
-                            {cities.length === 0 ? (el === 'city never can not find it') && el : ''}
+
+                        <span className='text-danger'>
+                            {cities.length === 0 && state[el].length > 3 ? (el !== 'city never can not find it') && state[el] : ''}
                         </span> 
+
                         <datalist id={el} >
                             {cities.map((city, key) =>
                                 <option key={key} value={city} />
                             )}  
                         </datalist>
-                        </div> 
-                        ))}
+                    </div>))
+                }
                 
-                </>}
+                </>} 
                        
 
                     

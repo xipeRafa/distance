@@ -67,12 +67,15 @@ const postCitySearch = async (finding:string) => {
 
 const postCity = async (post:PostDTO) => {
 
+  let keys = Object.keys(post)
+  console.log('keys :>> ', keys);
+console.log('post', post)
     try {
 
-          const { origen, inter, destiny, date, passengers } = post
+          /* const { origen, inter, destiny, date, passengers } = post */
 
-          const {data}  = await axiosApi.post('/cities', { origen, inter, destiny })
-
+          await axiosApi.post('/cities', post)
+/* 
           dispatch(origenToInterValView(data.origenToInterVal))
 
           dispatch(originToDestinyValView(data.originToDestinyVal))
@@ -81,7 +84,7 @@ const postCity = async (post:PostDTO) => {
 
           dispatch(infoView(post)) 
 
-          dispatch(somethingWentRigth(['Good Travel', origen + ' to ' + destiny, 'success']))
+          dispatch(somethingWentRigth(['Good Travel', origen + ' to ' + destiny, 'success'])) */
   
       } catch (error) {  
           SweetAlertError(error)
