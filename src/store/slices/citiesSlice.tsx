@@ -15,6 +15,7 @@ export const citiesSlice = createSlice({
     reducers: {
         cityDataPush: (state, { payload }) => {
             state.cities = payload;
+            console.log('state.cities :>> ', state.cities);
         },
 
         origenToInterValView: (state, { payload }) => {

@@ -5,17 +5,19 @@ import { useNavigate } from 'react-router-dom';
 
 type PropsPostForm = { 
     postCity: Function,
-    cities:String[], 
+    cities:any, 
     SweetAlert:Function 
+    postCitySearch:Function
 }
 
-export const PostForm = ({postCity, cities, SweetAlert}:PropsPostForm):JSX.Element => {
+export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPostForm):JSX.Element => {
 
     let navigateTo = useNavigate()
 
     const [bool, setBool]=useState<boolean>(true) 
 
     const [boolInput, setBoolInput]=useState<boolean>(false) 
+    const [error, setError]=useState<string>('city never can not find it')
 
     type State = {
         origen:string,
@@ -32,21 +34,22 @@ export const PostForm = ({postCity, cities, SweetAlert}:PropsPostForm):JSX.Eleme
         date:'',
         passengers:''
     })
-    console.log('state :>> ', state);
 
 
-    const { origen, destiny, date, passengers } = state
+    const { origen, destiny, date, inter, passengers } = state
 
-
-
-    type Target = {
-        target:{
-            name:string
-            value:string
-        }
-    }
+    //2023-02-10
+    //var birthday = new Date(1994, 12, 10)
     
+    let year = Number(date.slice(0, 4))
+    let mont = Number(date.slice(5, 7))
+    let day  = Number(date.slice(8,10))
     
+    let dateText = new Date(year, mont-1, day)
+    let milisecondsDate = new Date().setTime(dateText.getTime())
+    
+    //console.log('milisecondsDate :>> ', milisecondsDate);
+
     
     type FormElement = React.FormEvent<HTMLFormElement>
   
@@ -64,7 +67,7 @@ export const PostForm = ({postCity, cities, SweetAlert}:PropsPostForm):JSX.Eleme
             return
         }
      
-        postCity(state)
+       postCity(state)
 
         setTimeout(() => {
            navigateTo('/results')
@@ -76,41 +79,38 @@ export const PostForm = ({postCity, cities, SweetAlert}:PropsPostForm):JSX.Eleme
 
 
 
-    const handleInputChange = (target:Target): void => {
-        const { name, value } = target.target;
-        setState({ ...state, [name]: value })
-        
-        if(origen.trim() !== '' && destiny.trim() !== '' && date.trim() !== ''){
-            setBool(false)
-           
+    type Target = {
+        target:{
+            name:string
+            value:string
         }
-        if( Number(passengers)>100 ){
-            SweetAlert(['no mopre that 100.', 'select the Right Number of passengers', 'warning'])
-        }
-    }
-
-
-
-
-
-
-    type INP = {
-        label:string
-    }
-
-    const handleSelect = (v:INP): void => {
-        setState({ ...state, origen: v.label })
-        origen !== '' || destiny !== '' ? setBoolInput(true) : setBoolInput(false)
-    }
-
-    const handleSelectDestiny = (v:INP): void => {
-        setState({ ...state, destiny: v.label })
-        origen !== '' || destiny !== '' ? setBoolInput(true) : setBoolInput(false)
     }
     
 
-    const handleSelectInter = (v:INP): void => {
-        setState({ ...state, inter: v.label })
+    const handleInputChange = (target:Target): void => {
+        const { name, value } = target.target;
+        setState({ ...state, [name]: value })
+
+        if(name !== 'date' && name !== 'passengers'){  // run jun in cities
+           
+
+            if(value.length > 3 && cities.length === 0){
+                console.log('cities.length :>> ', cities.length);
+                setState({ ...state, [name]: error })
+            }
+            if(value.length > 0){
+                postCitySearch(value)
+            }
+        }
+        
+        if(origen.trim() !== '' && destiny.trim() !== ''){
+            setBool(false) 
+            console.log('kokokokok' )
+            setBoolInput(true)
+        }
+   /*      if( Number(passengers)>100 ){
+            SweetAlert(['no mopre that 100.', 'select the Right Number of passengers', 'warning'])
+        }  */
     }
 
 
@@ -124,13 +124,76 @@ export const PostForm = ({postCity, cities, SweetAlert}:PropsPostForm):JSX.Eleme
           
 
             <form onSubmit={onSubmitCities}>
-                <CustomAriaLive cities={cities} handleSelect={handleSelect} label='Origin' />
+    
 
-                <CustomAriaLive cities={cities} handleSelect={handleSelectDestiny} label='Destiny' />
 
-                {boolInput &&
-                    <CustomAriaLive cities={cities} handleSelect={handleSelectInter} label='Inter (opcional)' />
-                } 
+
+
+                <label>Select your city Origin </label>
+                <input 
+                    list="origen" 
+                    onChange={handleInputChange}  
+                    className="form-control mb-2" 
+                    name='origen'
+                    placeholder="origin"
+                    autoComplete='off'
+                />
+                <span className='text-danger'>
+                    {origen.length > 3 && cities.length === 0 ? (origen === 'city never can not find it') && origen : ''}
+                </span>
+
+                <datalist id="origen" >
+                        {cities.map((city, key) =>
+                            <option key={key} value={city} />
+                        )}  
+                </datalist>
+
+
+
+
+
+
+            
+                <label>Select your city Destiny </label>        
+                <input 
+                    list="destiny" 
+                    onChange={handleInputChange} 
+                    className="form-control mb-2" 
+                    name='destiny' 
+                    placeholder="destiny"
+                    autoComplete='off'
+                />
+                <span className='text-danger'>
+                {destiny.length > 3 && cities.length === 0 ? (destiny === 'city never can not find it') && destiny : ''}
+                </span>
+
+                <datalist id="destiny" >
+                        {cities.map((city, key) =>
+                            <option key={key} value={city} />
+                        )}  
+                </datalist>
+
+
+
+                { boolInput && <>
+                <label>Select your city Inter </label>
+                <input 
+                    list="inter" 
+                    onChange={handleInputChange} 
+                    className="form-control mb-2" 
+                    name='inter' 
+                    placeholder="inter"
+                    autoComplete='off'
+                />
+                 <span className='text-danger'>
+                    {inter.length > 3 && cities.length === 0 ? (inter === 'city never can not find it') && inter : ''}
+                </span>
+
+                <datalist id="inter" >
+                        {cities.map((city, key) =>
+                            <option key={key} value={city} />
+                        )}  
+                </datalist></>}
 
                     
 
@@ -147,7 +210,7 @@ export const PostForm = ({postCity, cities, SweetAlert}:PropsPostForm):JSX.Eleme
                     />
                 </div>
 
-                {boolInput &&
+                { boolInput && 
                 <div className="form-group mb-2">
                     <input
                         type='number'
@@ -161,6 +224,7 @@ export const PostForm = ({postCity, cities, SweetAlert}:PropsPostForm):JSX.Eleme
                         onChange={handleInputChange}
                     />
                 </div>}
+            
 
 
                 <div className="d-grid gap-2">
