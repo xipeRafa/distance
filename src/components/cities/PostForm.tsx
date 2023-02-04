@@ -25,7 +25,7 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
         destiny:string,
         date:string,
         passengers:string
-    }
+    } 
 
     const [state, setState]=useState<State>({
         origen: '',
@@ -66,8 +66,12 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
             SweetAlert(['no mopre that 100 or lees than 0', 'select the Right Number of passengers', 'warning'])
             return
         }
+
+        if( Number(passengers)>100 ){
+            SweetAlert(['no more that 100.', 'select the Right Number of passengers', 'warning'])
+        }  
      
-       postCity(state)
+        postCity(state)
 
         setTimeout(() => {
            navigateTo('/results')
@@ -92,10 +96,7 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
         setState({ ...state, [name]: value })
 
         if(name !== 'date' && name !== 'passengers'){  // run jun in cities
-           
-
             if(value.length > 3 && cities.length === 0){
-                console.log('cities.length :>> ', cities.length);
                 setState({ ...state, [name]: error })
             }
             if(value.length > 0){
@@ -105,17 +106,23 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
         
         if(origen.trim() !== '' && destiny.trim() !== ''){
             setBool(false) 
-            console.log('kokokokok' )
             setBoolInput(true)
         }
-   /*      if( Number(passengers)>100 ){
-            SweetAlert(['no mopre that 100.', 'select the Right Number of passengers', 'warning'])
-        }  */
     }
 
+    const [inters, setInters]=useState([])
 
 
+     const addObject =()=>{
+        let keys = Object.keys(state)
+        let newK = 'inter'.concat(keys.length -3)
+        state[newK] = ''
 
+        setInters([...inters, [newK]])
+    } 
+
+console.log('state', inters.flat())
+console.log('state', state)
   return (
     <div className="container login-container">
     <div className="row">
@@ -139,7 +146,7 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
                     autoComplete='off'
                 />
                 <span className='text-danger'>
-                    {origen.length > 3 && cities.length === 0 ? (origen === 'city never can not find it') && origen : ''}
+                    {origen.length > 3 && cities.length === 0 ? (origen === 'error no coincidences') && origen : ''}
                 </span>
 
                 <datalist id="origen" >
@@ -175,8 +182,8 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
 
 
 
-                { boolInput && <>
-                <label>Select your city Inter </label>
+                <label>Select your city Inter (optional) </label>
+
                 <input 
                     list="inter" 
                     onChange={handleInputChange} 
@@ -193,7 +200,35 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
                         {cities.map((city, key) =>
                             <option key={key} value={city} />
                         )}  
-                </datalist></>}
+                </datalist>
+
+
+                { boolInput && <>
+                <p><button onClick={addObject} className='btn btn-info'>+</button> </p>
+
+                        {inters.flat().map((el, i) => (
+                            <div key={i+'@#$'}>
+                            <input 
+                            list={el} 
+                            onChange={handleInputChange} 
+                            className="form-control mb-2" 
+                            name={el} 
+                            placeholder={el}
+                            autoComplete='off'
+                        />
+                          <span className='text-danger'>
+                            {cities.length === 0 ? (el === 'city never can not find it') && el : ''}
+                        </span> 
+                        <datalist id={el} >
+                            {cities.map((city, key) =>
+                                <option key={key} value={city} />
+                            )}  
+                        </datalist>
+                        </div> 
+                        ))}
+                
+                </>}
+                       
 
                     
 
@@ -228,7 +263,12 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch}:PropsPos
 
 
                 <div className="d-grid gap-2">
-                    <input type="submit" className={!bool ? "btnSubmitPost" : "btnSubmitPost2"} value={bool ? 'Disabled':'Send'} disabled={bool}/>
+                    <input 
+                        type="submit" 
+                        className={!bool ? "btnSubmitPost" : "btnSubmitPost2"} 
+                        value={bool ? 'Disabled':'Send'} 
+                        disabled={bool}
+                    />
                 </div> 
 
 
