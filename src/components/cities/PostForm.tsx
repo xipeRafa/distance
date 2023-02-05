@@ -82,7 +82,7 @@ export const PostForm = ({
         }
 
         if( passengers.includes('e') || passengers.includes('.') || Number(passengers)<1 || Number(passengers)>100){
-            SweetAlert(['no mopre that 100 or lees than 0', 'select the Right Number of passengers', 'warning'])
+            SweetAlert(['no more that 100 or lees than 0', 'select the Right Number of passengers', 'warning'])
             return
         }
 
@@ -132,7 +132,6 @@ export const PostForm = ({
         setTimeout(() => {    
             if(origen.trim() !== '' && destiny.trim() !== '' ){
                 setBool(false) 
-                //setBoolInput(true)
             }
         }, 400);
     }
@@ -244,7 +243,7 @@ export const PostForm = ({
                         />
 
                         <span className='text-danger'>
-                            {cities.length === 0 && state[el].length > 3 ? (el !== 'city never can not find it') && state[el] : ''}
+                            {cities.length === 0 && state[el].length > 3 ? (state[el] === 'city never can not find it') && state[el] : ''}
                         </span> 
 
                         <datalist id={el} >
