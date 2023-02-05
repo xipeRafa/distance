@@ -22,8 +22,6 @@ export const PostForm = ({
 
     const [bool, setBool]=useState<boolean>(true) 
 
-    //const [boolInput, setBoolInput]=useState<boolean>(false) 
-
     const [error, setError]=useState<string>('city never can not find it')
 
     type State = {
@@ -73,11 +71,13 @@ export const PostForm = ({
     const onSubmitCities = (event:FormElement): void => {
         event.preventDefault();
 
-        if( origen.trim() === '' || 
+        if(  origen.trim() === '' || 
             destiny.trim() === '' || 
-                date.trim() === '' || passengers.trim() === '' ){
+            passengers.trim() === '' ||
+                  date.trim() === '' ||
+                  Object.values(state).some(el => el === 'city never can not find it') ){
 
-            SweetAlert(['An Empty Field'])
+            SweetAlert(['An Empty Field...'])
             return
         }
 
