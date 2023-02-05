@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './postForm.css';
-import CustomAriaLive from './CustomAriaLive';
 import { useNavigate } from 'react-router-dom';
 
 type PropsPostForm = { 
@@ -11,13 +10,20 @@ type PropsPostForm = {
     dateAndPassengersPost:Function
 }
 
-export const PostForm = ({postCity, cities, SweetAlert, postCitySearch,dateAndPassengersPost}:PropsPostForm):JSX.Element => {
+export const PostForm = ({
+    postCity, 
+    cities, 
+    SweetAlert, 
+    postCitySearch,
+    dateAndPassengersPost }:PropsPostForm):JSX.Element => {
+    
 
     let navigateTo = useNavigate()
 
     const [bool, setBool]=useState<boolean>(true) 
 
-    const [boolInput, setBoolInput]=useState<boolean>(false) 
+    //const [boolInput, setBoolInput]=useState<boolean>(false) 
+
     const [error, setError]=useState<string>('city never can not find it')
 
     type State = {
@@ -25,6 +31,7 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch,dateAndPa
         inter1:string,
         destiny:string
     } 
+    
     type DateAndPassengers = {
         date:string,
         passengers:string
@@ -66,7 +73,10 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch,dateAndPa
     const onSubmitCities = (event:FormElement): void => {
         event.preventDefault();
 
-        if(origen.trim() === '' || destiny.trim() === '' || date.trim() === '' || passengers.trim() === '' ){
+        if( origen.trim() === '' || 
+            destiny.trim() === '' || 
+                date.trim() === '' || passengers.trim() === '' ){
+
             SweetAlert(['An Empty Field'])
             return
         }
@@ -118,11 +128,11 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch,dateAndPa
                 postCitySearch(value)
             }
         }
-
+          
         setTimeout(() => {    
-            if(origen.trim() !== '' && destiny.trim() !== ''){
+            if(origen.trim() !== '' && destiny.trim() !== '' ){
                 setBool(false) 
-                setBoolInput(true)
+                //setBoolInput(true)
             }
         }, 400);
     }
@@ -144,17 +154,13 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch,dateAndPa
     <div className="row">
         <div className="col-md-6 login-form-1 mt-4">
 
-            { boolInput && <>
+            { !bool && <>
                 <p><button onClick={addObject} className='btn btn-info'>+</button>{' '}add more inter cities </p>
             </>} 
           
 
             <form onSubmit={onSubmitCities}>
     
-
-
-
-
                 <label>Select your city Origin </label>
                 <input 
                     list="origen" 
@@ -200,7 +206,7 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch,dateAndPa
                 </datalist>
 
 
-                { boolInput && <>
+            { !bool && <>
                 <label>Select your city Inter (optional) </label>
 
                 <input 
@@ -249,7 +255,7 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch,dateAndPa
                     </div>))
                 }
                 
-                </>} 
+            </>} 
                        
 
                     
@@ -267,7 +273,7 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch,dateAndPa
                     />
                 </div>
 
-                { boolInput && 
+                { !bool && 
                 <div className="form-group mb-2">
                     <input
                         type='number'
@@ -287,7 +293,7 @@ export const PostForm = ({postCity, cities, SweetAlert, postCitySearch,dateAndPa
                 <div className="d-grid gap-2">
                     <input 
                         type="submit" 
-                        className={!bool ? "btnSubmitPost" : "btnSubmitPost2"} 
+                        className={bool ? "btnSubmitPost2" : "btnSubmitPost"} 
                         value={bool ? 'Disabled':'Send'} 
                         disabled={bool}
                     />

@@ -4,9 +4,14 @@ import { Link } from 'react-router-dom';
 
 export const Results = ():JSX.Element => {
 
-  const { infoView,originToDestinyValView, dateAndPassengersView } = useSelector(state => state.citiesSlice)
+  const { 
+    infoView,
+    originToDestinyValView, 
+    dateAndPassengersView, 
+    inters 
+  } = useSelector(state => state.citiesSlice)
 
-  const { origen, destiny, date, passengers } = infoView
+  const { origen, destiny } = infoView
 
 
 
@@ -21,19 +26,15 @@ export const Results = ():JSX.Element => {
 
 
 
+
   return (
-    <div style={{width:'80%',marginLeft:'10%'}}>
+    <div style={{width:'80%', marginLeft:'10%'}}>
 
         <hr />
 
-         <p>Origin To Destiny City = {originToDestinyValView} KMs</p>
+         <p>Origin To Destiny City = {originToDestinyValView.toFixed(3)} KMs</p>
  
-    
-        
-
         <hr />
-
-
 
          <p>Origen: {origen} </p>
 
@@ -42,6 +43,13 @@ export const Results = ():JSX.Element => {
          <p>Date: {dateAndPassengersView.date}</p>
 
          <p>Passengers: {dateAndPassengersView.passengers}</p>
+
+
+        { 
+          Object.keys(inters[0]).map((el, i) => (
+            <p key={i}> inter{i+1} - {el} : {Object.values(inters[0])[i]?.toFixed(3)} KMs </p>
+          ))
+        }  
 
     </div>
   )

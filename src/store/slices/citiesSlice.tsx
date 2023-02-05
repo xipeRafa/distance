@@ -6,6 +6,7 @@ export const citiesSlice = createSlice({
 
     initialState: {
         cities: [],
+        inters:[],
         originToDestinyValView:undefined,
         dateAndPassengersView:undefined,
         infoView:[],
@@ -14,6 +15,9 @@ export const citiesSlice = createSlice({
     reducers: {
         cityDataPush: (state, { payload }) => {
             state.cities = payload;
+        },
+        intersDataPush: (state, { payload }) => {
+            state.inters = payload;
         },
         originToDestinyValView: (state, { payload }) => {
             state.originToDestinyValView = payload;
@@ -29,7 +33,7 @@ export const citiesSlice = createSlice({
 
 
 
-export const { cityDataPush, originToDestinyValView, 
+export const { cityDataPush, intersDataPush, originToDestinyValView, 
     infoView, dateAndPassengersView } = citiesSlice.actions;
 
 

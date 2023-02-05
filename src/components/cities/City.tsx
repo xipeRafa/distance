@@ -7,8 +7,14 @@ import { useCity } from '../../hooks'
 
 export const City = ():JSX.Element => {
 
-    const { dataCityGet, postCity, cities, SweetAlert, 
-        postCitySearch, dateAndPassengersPost } = useCity()
+    const { 
+        dataCityGet, 
+        postCity, 
+        cities, 
+        SweetAlert,
+        postCitySearch, 
+        dateAndPassengersPost 
+    } = useCity()
 
 
     useEffect(() => {
@@ -18,9 +24,13 @@ export const City = ():JSX.Element => {
 
 
     return (
-        <PostForm postCity={postCity} cities={cities}
-         SweetAlert={SweetAlert} postCitySearch={postCitySearch} 
-         dateAndPassengersPost={dateAndPassengersPost}/>       
+        <PostForm 
+            postCity={postCity} 
+            cities={cities}
+            SweetAlert={SweetAlert} 
+            postCitySearch={postCitySearch} 
+            dateAndPassengersPost={dateAndPassengersPost} 
+        />       
     )
 
 

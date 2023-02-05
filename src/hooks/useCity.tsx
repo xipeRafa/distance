@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import axiosApi from '../api/api'
 import { errorConsoleCatch } from '../helpers'
 
-import { cityDataPush,originToDestinyValView, dateAndPassengersView,
+import { cityDataPush, intersDataPush, originToDestinyValView, dateAndPassengersView,
            infoView } from  '../store/slices/citiesSlice'
 import { somethingWentWrong, somethingWentRigth } from  '../store/slices/alertSlice'
 
@@ -56,7 +56,7 @@ const postCitySearch = async (finding:string) => {
         const {data}  = await axiosApi.post('/cities/search', {finding})
         dispatch(cityDataPush(data))
     }catch (error) {  
-      console.log('errorSearch :>> ', error);
+        console.log('errorSearch :>> ', error);
         SweetAlertError(error)
         errorConsoleCatch(error) 
     }  
@@ -74,10 +74,11 @@ const postCity = async (post:PostDTO) => {
 
           const { origen, destiny } = post 
 
-          const {data} = await axiosApi.post('/cities', post)
-
-
-
+          const { data } = await axiosApi.post('/cities', post)          
+          
+          dispatch(intersDataPush([data.intersKMS]))
+          
+        
           dispatch(originToDestinyValView(data.originToDestinyVal))
 
 
