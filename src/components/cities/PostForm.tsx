@@ -265,6 +265,7 @@ export const PostForm = ({
                 <div className="form-group mb-2">{/*  */}
                     <input
                         type='date'
+                        min={new Date().toISOString().split("T")[0]}
                         className="form-control"
                         placeholder="date"
                         name="date"
