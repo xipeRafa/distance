@@ -1,5 +1,7 @@
+import {useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useCity } from '../hooks/useCity';
 
 
 export const Results = ():JSX.Element => {
@@ -11,8 +13,14 @@ export const Results = ():JSX.Element => {
     inters 
   } = useSelector(state => state.citiesSlice)
 
+  const { dataCityGet } = useCity()
+
   const { origen, destiny } = infoView
 
+  useEffect(() => {
+    dataCityGet()
+    localStorage.done='true'
+  }, []) 
 
 
   if(originToDestinyValView===undefined){
@@ -40,9 +48,9 @@ export const Results = ():JSX.Element => {
 
          <p>Destiny: {destiny}</p> 
 
-         <p>Date: {dateAndPassengersView.date}</p>
+         <p>Date: {dateAndPassengersView?.date}</p>
 
-         <p>Passengers: {dateAndPassengersView.passengers}</p>
+         <p>Passengers: {dateAndPassengersView?.passengers}</p>
 
 
         { 

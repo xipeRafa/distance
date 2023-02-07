@@ -1,24 +1,17 @@
 import { useState } from 'react'
 import './postForm.css';
-import { useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 type PropsPostForm = { 
-    postCity: Function,
-    cities:any, 
+    cities:string[], 
     SweetAlert:Function 
     postCitySearch:Function
-    dateAndPassengersPost:Function
 }
 
-export const PostForm = ({
-    postCity, 
-    cities, 
-    SweetAlert, 
-    postCitySearch,
-    dateAndPassengersPost }:PropsPostForm):JSX.Element => {
-    
+export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):JSX.Element => {
 
     let navigateTo = useNavigate()
+
 
     const [bool, setBool]=useState<boolean>(true) 
 
@@ -48,21 +41,8 @@ export const PostForm = ({
     })
 
 
-
     const { origen, destiny, inter1 } = state
     const { date, passengers } = dateAndPassengers
-
-    //2023-02-10
-    //var birthday = new Date(1994, 12, 10)
-    
-    let year = Number(date.slice(0, 4))
-    let mont = Number(date.slice(5, 7))
-    let day  = Number(date.slice(8,10))
-    
-    let dateText = new Date(year, mont-1, day)
-    let milisecondsDate = new Date().setTime(dateText.getTime())
-    
-    //console.log('milisecondsDate :>> ', milisecondsDate);
 
     
     type FormElement = React.FormEvent<HTMLFormElement>
@@ -89,13 +69,27 @@ export const PostForm = ({
         if( Number(passengers)>100 ){
             SweetAlert(['no more that 100.', 'select the Right Number of passengers', 'warning'])
         }  
-     
-        postCity(state)
-        dateAndPassengersPost(dateAndPassengers)
 
         setTimeout(() => {
-           navigateTo('/results')
-        }, 1000);
+            let arrayState = Object.entries(state)
+            let arrayDateAnd = Object.entries(dateAndPassengers)
+
+            let array = [...arrayState, ...arrayDateAnd]
+
+                let findThis = ''
+
+            for (let index = 0; index < array.length; index++) {
+                const key = array[index][0];
+                findThis += key
+                findThis += "="
+                const value = array[index][1];
+                findThis += value
+                findThis += "&"
+            }
+
+            navigateTo(`/results?${findThis}`) 
+
+        }, 800);
 
         localStorage.done='true'
     }

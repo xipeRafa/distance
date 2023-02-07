@@ -9,6 +9,8 @@ import { somethingWentWrong, somethingWentRigth } from  '../store/slices/alertSl
 
 
 
+
+
 export const useCity = () => {
 
   const { cities } = useSelector(state => state.citiesSlice)
@@ -28,15 +30,31 @@ export const useCity = () => {
 
   
 
+
+
+
   const dataCityGet = async () => {
+
+    let searching = window.location.search
+
     try { 
-        const { data } = await axiosApi.get(`/cities`)
-        dispatch(cityDataPush([]))// {cities}
+        const { data } = await axiosApi.get(`/cities${searching}`)
+
+        dispatch(intersDataPush([data.intersKMS]))
+          
+        dispatch(originToDestinyValView(data.originToDestinyVal)) 
+        dispatch(infoView(data.post)) 
+        dispatch(dateAndPassengersView(data.dp))
+
     } catch (error) {
         SweetAlertError(error)
         errorConsoleCatch('datacityGet:',error)
     }  
+
   }
+
+
+
 
 
 type PostDTO ={
@@ -50,7 +68,7 @@ type PostDTO ={
 
 
 const postCitySearch = async (finding:string) => {
-
+      
    try {
 
         const {data}  = await axiosApi.post('/cities/search', {finding})
@@ -62,49 +80,14 @@ const postCitySearch = async (finding:string) => {
     }  
 }
 
-function dateAndPassengersPost(dp){
-  dispatch(dateAndPassengersView(dp))
-}
-
-
-
-const postCity = async (post:PostDTO) => {
-
-    try {
-
-          const { origen, destiny } = post 
-
-          const { data } = await axiosApi.post('/cities', post)          
-          
-          dispatch(intersDataPush([data.intersKMS]))
-          
-        
-          dispatch(originToDestinyValView(data.originToDestinyVal))
-
-
-          dispatch(infoView(post)) 
-
-          dispatch(somethingWentRigth(['Good Travel', origen + ' to ' + destiny, 'success'])) 
-  
-      } catch (error) {  
-          SweetAlertError(error)
-          errorConsoleCatch(error) 
-      }  
-
-}
-
-
- 
 
 
 
 
   return {
     dataCityGet,
-    postCity,
     SweetAlert,
     postCitySearch,
-    dateAndPassengersPost,
 
     //states
     cities,

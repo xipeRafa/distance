@@ -44,7 +44,7 @@ const AppRouter = () => {
                 <Route path="/results" element={<Results />} />
 
 
-                 <Route path="/*" element={<Navigate to="/cities" />} />  
+                 {/* <Route path="/*" element={<Navigate to="/cities" />} />   */}
 
             </Routes>
         </div>
