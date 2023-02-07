@@ -154,6 +154,7 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
 
             <form onSubmit={onSubmitCities}>
     
+
                 <label>Select your city Origin </label>
                 <input 
                     list="origen" 
@@ -197,6 +198,11 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
                             <option key={key} value={city} />
                         )}  
                 </datalist>
+
+
+
+
+
 
 
             { !bool && <>

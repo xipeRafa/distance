@@ -25,7 +25,7 @@ export const useCity = () => {
 
   function SweetAlert(error){
     dispatch(somethingWentWrong([error[0], error[1], error[2]]))
-}
+  }
 
 
   

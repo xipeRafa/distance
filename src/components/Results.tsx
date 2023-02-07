@@ -55,7 +55,7 @@ export const Results = ():JSX.Element => {
 
         { 
           Object.keys(inters[0]).map((el, i) => (
-            <p key={i}> inter{i+1} - {el} : {Object.values(inters[0])[i]?.toFixed(3)} KMs </p>
+            <p key={i}> inter{i+1} - {el} : {Number(Object.values(inters[0])[i])?.toFixed(3)} KMs </p>
           ))
         }  
 
