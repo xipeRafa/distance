@@ -54,7 +54,7 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
         if( Object.values(state).some(el => el.length <= 3) ||
             Object.values(state).some(el => el === 'city never can not find it') ){
 
-            SweetAlert(['An Empty Field...'])
+            SweetAlert(['A City Never Can Not Find It...'])
             return
         }
 
