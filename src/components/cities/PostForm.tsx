@@ -51,11 +51,8 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
     const onSubmitCities = (event:FormElement): void => {
         event.preventDefault();
 
-        if(  origen.trim() === '' || 
-            destiny.trim() === '' || 
-            passengers.trim() === '' ||
-                  date.trim() === '' ||
-                  Object.values(state).some(el => el === 'city never can not find it') ){
+        if( Object.values(state).some(el => el.length <= 3) ||
+            Object.values(state).some(el => el === 'city never can not find it') ){
 
             SweetAlert(['An Empty Field...'])
             return
@@ -206,7 +203,7 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
 
 
             { !bool && <>
-                <label>Select your city Inter (optional) </label>
+                <label>Select your city Inter</label>
 
                 <input 
                     list="inter1" 
