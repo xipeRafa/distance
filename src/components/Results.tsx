@@ -40,13 +40,13 @@ export const Results = ():JSX.Element => {
 
         <hr />
 
-         <p>Origin To Destiny City = {originToDestinyValView.toFixed(3)} KMs</p>
+         <p>Origin To Destiny City = {originToDestinyValView} KMs</p>
  
         <hr />
 
-         <p>Origen: {origen} </p>
+         <p>Origen: {origen.split("_").join(" ")} </p>
 
-         <p>Destiny: {destiny}</p> 
+         <p>Destiny: {destiny.split("_").join(" ")}</p> 
 
          <p>Date: {dateAndPassengersView?.date}</p>
 
@@ -55,7 +55,7 @@ export const Results = ():JSX.Element => {
 
         { 
           Object.keys(inters[0]).map((el, i) => (
-            <p key={i}> inter{i+1} - {el} : {Number(Object.values(inters[0])[i])?.toFixed(3)} KMs </p>
+            <p key={i}> inter{i+1} - {el.split("_").join(" ")} : {Number(Object.values(inters[0])[i])} KMs </p>
           ))
         }  
 

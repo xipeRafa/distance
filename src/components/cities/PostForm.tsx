@@ -22,6 +22,7 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
         inter1:string,
         destiny:string
     } 
+
     
     type DateAndPassengers = {
         date:string,
@@ -33,6 +34,7 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
         destiny:'',
         inter1: '',
     })
+    console.log("🚀 ~ file: PostForm.tsx:37 ~ PostForm ~ state", state)
 
 
     const [dateAndPassengers, setDateAndPassengers]=useState<DateAndPassengers>({
@@ -110,13 +112,34 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
         }
 
         if(name !== 'date' && name !== 'passengers'){ 
-            setState({ ...state, [name]: value })
+            let v = value.trim()[0].toUpperCase() + value.substring(1).split(" ").join("_")
+            let post = [v]
+            
+            if(v.includes('_')){
+                let i = v.indexOf("_") +1
+                let letter = v[i]
+                let up = v.replace(letter, letter.toUpperCase())
+                post.splice(0, 1, up)
+            } 
+
+            setState({ ...state, [name]: post[0]})
 
             if(value.length > 3 && cities.length === 0){
-                setState({ ...state, [name]: error })
+                setState({ ...state, [name]: error }) // -=-=-=-=- ERRO
             }
+
             if(value.length > 0){
-                postCitySearch(value)
+             /*    let v = value.trim().split(" ").join("_") */
+             /*    let post = [v]
+                
+                if(v.includes('_')){
+                    let i = v.indexOf("_") +1
+                    let letter = v[i]
+                    let up = v.replace(letter, letter.toUpperCase())
+                    post.splice(0, 1, up)
+                } */
+
+                postCitySearch(post[0])
             }
         }
           
@@ -131,8 +154,8 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
 
 
      const addObject =()=>{
-        let keys = Object.keys(state)
-        let newK = 'inter'.concat(keys.length -1)
+        let keys:string[] = Object.keys(state)
+        let newK:string = 'inter'.concat(String(keys.length -1))
         state[newK] = ''
 
         setInters([...inters, [newK]])
@@ -167,7 +190,7 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
 
                 <datalist id="origen" >
                         {cities.map((city, key) =>
-                            <option key={key} value={city} />
+                            <option key={key} value={city.split("_").join(" ")} />
                         )}  
                 </datalist>
 
@@ -192,7 +215,7 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
 
                 <datalist id="destiny" >
                         {cities.map((city, key) =>
-                            <option key={key} value={city} />
+                            <option key={key} value={city.split("_").join(" ")} />
                         )}  
                 </datalist>
 
@@ -219,7 +242,7 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
 
                 <datalist id="inter1" >
                         {cities.map((city, key) =>
-                            <option key={key} value={city} />
+                            <option key={key} value={city.split("_").join(" ")} />
                         )}  
                 </datalist>
 
@@ -245,7 +268,7 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
 
                         <datalist id={el} >
                             {cities.map((city, key) =>
-                                <option key={key} value={city} />
+                                <option key={key} value={city.split("_").join(" ")} />
                             )}  
                         </datalist>
                     </div>))
