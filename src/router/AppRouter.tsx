@@ -40,6 +40,7 @@ const AppRouter = () => {
             <Nav />
             <Routes>
 
+                <Route path="/" element={<City />} />
                 <Route path="/cities" element={<City />} />
                 <Route path="/results" element={<Results />} />
 
