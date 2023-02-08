@@ -3,12 +3,12 @@ import './postForm.css';
 import {  useNavigate } from 'react-router-dom';
 
 type PropsPostForm = { 
-    cities:string[], 
+    citiesState:string[], 
     SweetAlert:Function 
     postCitySearch:Function
 }
 
-export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):JSX.Element => {
+export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostForm):JSX.Element => {
 
     let navigateTo = useNavigate()
 
@@ -125,7 +125,7 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
 
             setState({ ...state, [name]: post[0]})
 
-            if(value.length > 3 && cities.length === 0){
+            if(value.length > 3 && citiesState.length === 0){
                 setState({ ...state, [name]: error }) // -=-=-=-=- ERRO
             }
 
@@ -174,11 +174,11 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
                     autoComplete='off'
                 />
                 <span className='text-danger'>
-                    {origen.length > 3 && cities.length === 0 ? (origen === 'city never can not find it') && origen : ''}
+                    {origen.length > 3 && citiesState.length === 0 ? (origen === 'city never can not find it') && origen : ''}
                 </span>
 
                 <datalist id="origen" >
-                        {cities.map((city, key) =>
+                        {citiesState.map((city, key) =>
                             <option key={key} value={city.split("_").join(" ")} />
                         )}  
                 </datalist>
@@ -199,11 +199,11 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
                     autoComplete='off'
                 />
                 <span className='text-danger'>
-                {destiny.length > 3 && cities.length === 0 ? (destiny === 'city never can not find it') && destiny : ''}
+                {destiny.length > 3 && citiesState.length === 0 ? (destiny === 'city never can not find it') && destiny : ''}
                 </span>
 
                 <datalist id="destiny" >
-                        {cities.map((city, key) =>
+                        {citiesState.map((city, key) =>
                             <option key={key} value={city.split("_").join(" ")} />
                         )}  
                 </datalist>
@@ -226,11 +226,11 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
                     autoComplete='off'
                 />
                 <span className='text-danger'>
-                    {inter1.length > 3 && cities.length === 0 ? (inter1 === 'city never can not find it') && inter1 : ''}
+                    {inter1.length > 3 && citiesState.length === 0 ? (inter1 === 'city never can not find it') && inter1 : ''}
                 </span>
 
                 <datalist id="inter1" >
-                        {cities.map((city, key) =>
+                        {citiesState.map((city, key) =>
                             <option key={key} value={city.split("_").join(" ")} />
                         )}  
                 </datalist>
@@ -252,11 +252,11 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
                         />
 
                         <span className='text-danger'>
-                            {cities.length === 0 && state[el].length > 3 ? (state[el] === 'city never can not find it') && state[el] : ''}
+                            {citiesState.length === 0 && state[el].length > 3 ? (state[el] === 'city never can not find it') && state[el] : ''}
                         </span> 
 
                         <datalist id={el} >
-                            {cities.map((city, key) =>
+                            {citiesState.map((city, key) =>
                                 <option key={key} value={city.split("_").join(" ")} />
                             )}  
                         </datalist>

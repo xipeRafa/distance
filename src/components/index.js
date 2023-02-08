@@ -3,5 +3,5 @@
 
 
 export * from './cities/City'
-export * from './Results'
+export * from './cities/Results'
 

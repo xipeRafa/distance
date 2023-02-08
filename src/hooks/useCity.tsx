@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import axiosApi from '../api/api'
 import { errorConsoleCatch } from '../helpers'
 
-import { cityDataPush, intersDataPush, originToDestinyValView, dateAndPassengersView,
-           infoView } from  '../store/slices/citiesSlice'
+import { cityDataPush, intersDataPush, originToDestinyValView, dateAndPassengersView, infoView } from  '../store/slices/citiesSlice'
 import { somethingWentWrong, somethingWentRigth } from  '../store/slices/alertSlice'
 
 
@@ -13,7 +12,7 @@ import { somethingWentWrong, somethingWentRigth } from  '../store/slices/alertSl
 
 export const useCity = () => {
 
-  const { cities } = useSelector(state => state.citiesSlice)
+  const { citiesState, intersState, originToDestinyValState, infoViewState, dateAndPassengersState } = useSelector(state => state.citiesSlice)
 
   const dispatch = useDispatch()
   
@@ -33,7 +32,7 @@ export const useCity = () => {
 
 
 
-  const dataCityGet = async () => {
+  const dataCityGet:Function  = async () => {
 
     let searching = window.location.search
 
@@ -90,8 +89,15 @@ const postCitySearch = async (finding:string) => {
     postCitySearch,
 
     //states
-    cities,
+    citiesState,
+    intersState,
+    infoViewState,
+    originToDestinyValState, 
+    dateAndPassengersState, 
   }
 
 
 }
+
+
+
