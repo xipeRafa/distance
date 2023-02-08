@@ -18,7 +18,6 @@ export const Results = ():JSX.Element => {
 
   useEffect(() => {
     dataCityGet()
-    localStorage.done='true'
   }, []) 
 
 
@@ -26,14 +25,13 @@ export const Results = ():JSX.Element => {
 
 
   if(originToDestinyValView===undefined || originToDestinyValView===null){
-
-      localStorage.done='false'
-      return(
+      setTimeout(() => {
+        return(
           <p style={{width:'80%',marginLeft:'10%'}}>
                 <Link to="/cities" className='mx-5'>Return Cities </Link>
           </p>
       )
-          
+      }, 800);  
   } 
     
 

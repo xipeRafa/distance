@@ -13,12 +13,9 @@ export const Nav = ():JSX.Element => {
           <div>
             <span>
               
-              {localStorage.done === 'true' ? <>
                 <Link style={{color:"white"}} to="/cities" className='mx-5'> Cities </Link>
                 <Link style={{color:"white"}} to="/results" className='mx-5'> Results </Link>
-              </>:
-                <p style={{color:"white"}} className='mb-0'>Select The Cities</p>
-              }
+
             </span>
           </div>
 

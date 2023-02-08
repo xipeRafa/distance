@@ -89,7 +89,6 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
 
         }, 800);
 
-        localStorage.done='true'
     }
 
 
