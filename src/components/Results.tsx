@@ -23,7 +23,8 @@ export const Results = ():JSX.Element => {
   }, []) 
 
 
-  if(originToDestinyValView===undefined){
+  if(originToDestinyValView===undefined || originToDestinyValView===null){
+    localStorage.done='false'
       return(
           <p style={{width:'80%',marginLeft:'10%'}}>
                 <Link to="/cities" className='mx-5'>Return Cities </Link>
@@ -34,19 +35,18 @@ export const Results = ():JSX.Element => {
 
 
 
-
   return (
     <div style={{width:'80%', marginLeft:'10%'}}>
 
         <hr />
 
-         <p>Origin To Destiny City = {originToDestinyValView} KMs</p>
+         <p>Origin To Destiny City = {Number(originToDestinyValView)?.toFixed(3)} KMs</p>
  
         <hr />
 
-         <p>Origen: {origen.split("_").join(" ")} </p>
+         <p>Origen: {origen?.split("_").join(" ")} </p>
 
-         <p>Destiny: {destiny.split("_").join(" ")}</p> 
+         <p>Destiny: {destiny?.split("_").join(" ")}</p> 
 
          <p>Date: {dateAndPassengersView?.date}</p>
 
@@ -55,7 +55,7 @@ export const Results = ():JSX.Element => {
 
         { 
           Object.keys(inters[0]).map((el, i) => (
-            <p key={i}> inter{i+1} - {el.split("_").join(" ")} : {Number(Object.values(inters[0])[i])} KMs </p>
+            <p key={i}> inter{i+1} - {el.split("_").join(" ")} : {Number(Object.values(inters[0])[i])?.toFixed(3)} KMs </p>
           ))
         }  
 

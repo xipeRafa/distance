@@ -34,7 +34,6 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
         destiny:'',
         inter1: '',
     })
-    console.log("🚀 ~ file: PostForm.tsx:37 ~ PostForm ~ state", state)
 
 
     const [dateAndPassengers, setDateAndPassengers]=useState<DateAndPassengers>({
@@ -104,6 +103,9 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
     }
     
 
+
+
+
     const handleInputChange = (target:Target): void => {
         const { name, value } = target.target;
       
@@ -112,13 +114,13 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
         }
 
         if(name !== 'date' && name !== 'passengers'){ 
-            let v = value.trim()[0].toUpperCase() + value.substring(1).split(" ").join("_")
+            let v = value.trim()[0]?.toUpperCase() + value.substring(1).split(" ").join("_")
             let post = [v]
             
             if(v.includes('_')){
                 let i = v.indexOf("_") +1
                 let letter = v[i]
-                let up = v.replace(letter, letter.toUpperCase())
+                let up = v.replace(letter, letter?.toUpperCase())
                 post.splice(0, 1, up)
             } 
 
@@ -128,19 +130,7 @@ export const PostForm = ({ cities, SweetAlert, postCitySearch }:PropsPostForm):J
                 setState({ ...state, [name]: error }) // -=-=-=-=- ERRO
             }
 
-            if(value.length > 0){
-             /*    let v = value.trim().split(" ").join("_") */
-             /*    let post = [v]
-                
-                if(v.includes('_')){
-                    let i = v.indexOf("_") +1
-                    let letter = v[i]
-                    let up = v.replace(letter, letter.toUpperCase())
-                    post.splice(0, 1, up)
-                } */
-
-                postCitySearch(post[0])
-            }
+            postCitySearch(post[0])
         }
           
         setTimeout(() => {    
