@@ -12,6 +12,7 @@ export const Results = ():JSX.Element => {
     inters 
   } = useSelector(state => state.citiesSlice)
 
+
   const { dataCityGet, SweetAlert } = useCity()
 
   const { origen, destiny } = infoView
@@ -23,15 +24,12 @@ export const Results = ():JSX.Element => {
 
 
 
-
   if(originToDestinyValView===undefined || originToDestinyValView===null){
-      setTimeout(() => {
         return(
           <p style={{width:'80%',marginLeft:'10%'}}>
                 <Link to="/cities" className='mx-5'>Return Cities </Link>
           </p>
       )
-      }, 800);  
   } 
     
 
@@ -57,7 +55,7 @@ export const Results = ():JSX.Element => {
         <hr />
 
         { 
-          Object.keys(inters[0]).map((el, i) => (
+          Object.keys(inters[0])?.map((el, i) => (
             <p key={i}> <b>inter{i+1} - </b> {el.split("_").join(" ")} : {Number(Object.values(inters[0])[i])?.toFixed(3)} KMs </p>
           ))
         }  
