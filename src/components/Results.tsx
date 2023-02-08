@@ -72,7 +72,7 @@ export const Results = ():JSX.Element => {
                   SweetAlert(['Link Copied!!', origen + ' to ' + destiny])
               }}>
 
-            Copy and Share the Link with your Friends 
+            Copy and Share the Link with Your Friends 
         </button>
 
         <div style={{ margin: "60px auto", width: "364px"}}>
