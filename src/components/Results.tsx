@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useCity } from '../hooks/useCity';
-
+import QRCode from "react-qr-code";
 
 export const Results = ():JSX.Element => {
 
@@ -23,14 +23,20 @@ export const Results = ():JSX.Element => {
   }, []) 
 
 
+
+
+  
   if(originToDestinyValView===undefined || originToDestinyValView===null){
-    localStorage.done='false'
+    setTimeout(() => {
+      localStorage.done='false'
       return(
           <p style={{width:'80%',marginLeft:'10%'}}>
                 <Link to="/cities" className='mx-5'>Return Cities </Link>
           </p>
-      )       
-  }
+      )
+    }, 1000);
+          
+  } 
     
 
 
@@ -72,8 +78,19 @@ export const Results = ():JSX.Element => {
                   SweetAlert(['Link Copied!!', origen + ' to ' + destiny])
               }}>
 
-            Copy and Share the Link with Your Friends 
+            Copy and Share the Link with your Friends 
         </button>
+
+        <div style={{ margin: "60px auto", width: "364px"}}>
+
+          <QRCode
+              style={{ height: "auto", width: "100%" }}
+              value={window.location.href}
+              viewBox={`0 0 256 256`}
+              level={'Q'}
+          />
+
+        </div>
 
     </div>
   )
