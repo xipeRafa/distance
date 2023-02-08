@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useCity } from '../hooks/useCity';
-
+import QRCode from "react-qr-code";
 
 export const Results = ():JSX.Element => {
 
@@ -13,7 +13,7 @@ export const Results = ():JSX.Element => {
     inters 
   } = useSelector(state => state.citiesSlice)
 
-  const { dataCityGet } = useCity()
+  const { dataCityGet, SweetAlert } = useCity()
 
   const { origen, destiny } = infoView
 
@@ -38,26 +38,53 @@ export const Results = ():JSX.Element => {
   return (
     <div style={{width:'80%', marginLeft:'10%'}}>
 
+        <p><b>Origen: </b> {origen?.split("_").join(" ")} </p>
+
+        <p><b>Destiny:</b> {destiny?.split("_").join(" ")}</p> 
+
         <hr />
 
-         <p>Origin To Destiny City = {Number(originToDestinyValView)?.toFixed(3)} KMs</p>
+         <p><b>Origin To Destiny City</b> = {Number(originToDestinyValView)?.toFixed(3)} KMs</p>
  
         <hr />
 
-         <p>Origen: {origen?.split("_").join(" ")} </p>
+         <p><b>Date: </b>{dateAndPassengersView?.date}</p>
 
-         <p>Destiny: {destiny?.split("_").join(" ")}</p> 
+         <p><b>Passengers:</b> {dateAndPassengersView?.passengers}</p>
 
-         <p>Date: {dateAndPassengersView?.date}</p>
-
-         <p>Passengers: {dateAndPassengersView?.passengers}</p>
-
+        <hr />
 
         { 
           Object.keys(inters[0]).map((el, i) => (
-            <p key={i}> inter{i+1} - {el.split("_").join(" ")} : {Number(Object.values(inters[0])[i])?.toFixed(3)} KMs </p>
+            <p key={i}> <b>inter{i+1} - </b> {el.split("_").join(" ")} : {Number(Object.values(inters[0])[i])?.toFixed(3)} KMs </p>
           ))
         }  
+
+        <hr />
+
+        <br />
+        <br />
+
+        <button 
+              className='btn btn-info' 
+              onClick={() => {
+                  navigator.clipboard.writeText(window.location.href) 
+                  SweetAlert(['Link Copied!!', origen + ' to ' + destiny])
+              }}>
+
+            Copy and Share the Link with your Friends 
+        </button>
+
+        <div style={{ margin: "60px auto", width: "364px"}}>
+
+          <QRCode
+              style={{ height: "auto", width: "100%" }}
+              value={window.location.href}
+              viewBox={`0 0 256 256`}
+              level={'Q'}
+          />
+
+        </div>
 
     </div>
   )
