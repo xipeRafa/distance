@@ -43,3 +43,9 @@
 }
 
 
+.rot{
+    transform: rotate(-90deg);
+    padding: 0;
+    height: 35px;
+    width: 35px;
+}

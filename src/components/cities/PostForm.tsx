@@ -34,6 +34,7 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
         destiny:'',
         inter1: '',
     })
+   
 
 
     const [dateAndPassengers, setDateAndPassengers]=useState<DateAndPassengers>({
@@ -42,7 +43,7 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
     })
 
 
-    const { origen, destiny, inter1 } = state
+    const { origen, destiny, inter1, ...restStateInters} = state
     const { date, passengers } = dateAndPassengers
 
     
@@ -52,21 +53,33 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
     const onSubmitCities = (event:FormElement): void => {
         event.preventDefault();
 
-        if( Object.values(state).some(el => el.length <= 3) ||
+        if( Object.values(restStateInters).some(el => el === '') ||  
             Object.values(state).some(el => el === 'city never can not find it') ){
+                
+                let er = Object.values(restStateInters).findIndex(el => el === '' ) 
+                let k = Object.keys(restStateInters)[er] 
 
-            SweetAlert(['A City Never Can Not Find It...'])
+                let u = k
+                if(k === undefined){
+                    u = 'letter'
+                }
+
+                let er2 = Object.values(restStateInters).findIndex(el => el === error ) 
+                let k2 = Object.keys(restStateInters)[er2] 
+
+                let u2 = k2
+                if(k2 === undefined){
+                    u2 = 'type'
+                }
+
+            SweetAlert(['A City Never Can Not Find It...',`Check <b>${u}</b> and/or <b>${u2}</b> please`, 'warning'])
             return
         }
 
         if( passengers.includes('e') || passengers.includes('.') || Number(passengers)<1 || Number(passengers)>100){
             SweetAlert(['no more that 100 or lees than 0', 'select the Right Number of passengers', 'warning'])
             return
-        }
-
-        if( Number(passengers)>100 ){
-            SweetAlert(['no more that 100.', 'select the Right Number of passengers', 'warning'])
-        }  
+        } 
 
         setTimeout(() => {
             let arrayState = Object.entries(state)
@@ -142,7 +155,7 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
     const [inters, setInters]=useState([])
 
 
-     const addObject =()=>{
+    const addObject =()=>{
         let keys:string[] = Object.keys(state)
         let newK:string = 'inter'.concat(String(keys.length -1))
         state[newK] = ''
@@ -150,6 +163,15 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
         setInters([...inters, [newK]])
     } 
 
+    const removeObject =()=>{
+        let lastKeys:string[] = Object.keys(state).slice(-1)
+        
+        if(inters.length>0){
+            delete state[lastKeys[0]]
+            inters.pop()
+            setInters([...inters])
+        }
+    }
 
   return (
     <div className="container login-container">
@@ -157,7 +179,8 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
         <div className="col-md-6 login-form-1 mt-4">
 
             { !bool && <>
-                <p><button onClick={addObject} className='btn btn-info'>+</button>{' '}add more inter cities </p>
+                <p><button onClick={addObject} className='btn btn-info text-white'>+</button>{' '} Add more inter cities </p>
+                <p><button onClick={removeObject} className="btn btn-danger rot" >|</button>{' '} Remove inter cities </p>
             </>} 
           
 
@@ -215,7 +238,7 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
 
 
             { !bool && <>
-                <label>Select your city Inter</label>
+                <label>Select your city Inter (OPTIONAL)</label>
 
                 <input 
                     list="inter1" 

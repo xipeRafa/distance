@@ -15,7 +15,7 @@ export const Results = ():JSX.Element => {
       dataCityGet()
   }, []) 
 
-
+console.log(intersState)
 
 
 
@@ -50,9 +50,13 @@ export const Results = ():JSX.Element => {
         <hr />
  
         { 
-          Object.keys(intersState[0])?.map((el, i) => (
-            <p key={i}> <b>inter{i+1} - </b> {el.split("_").join(" ")} : {Number(Object.values(intersState[0])[i])?.toFixed(3)} KMs </p>
-          ))
+          Object.keys(intersState[0])?.map((el, i) => {
+            if(el === ''){
+              return
+            }else{
+              return <p key={i}> <b>inter{i+1} - </b> {el.split("_").join(" ")} : {Number(Object.values(intersState[0])[i])?.toFixed(3)} KMs </p>
+            }
+          })
         }   
 
         <hr />
