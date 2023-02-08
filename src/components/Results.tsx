@@ -2,7 +2,7 @@ import {useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useCity } from '../hooks/useCity';
-import QRCode from "react-qr-code";
+
 
 export const Results = ():JSX.Element => {
 
@@ -74,17 +74,6 @@ export const Results = ():JSX.Element => {
 
             Copy and Share the Link with your Friends 
         </button>
-
-        <div style={{ margin: "60px auto", width: "364px"}}>
-
-          <QRCode
-              style={{ height: "auto", width: "100%" }}
-              value={window.location.href}
-              viewBox={`0 0 256 256`}
-              level={'Q'}
-          />
-
-        </div>
 
     </div>
   )
