@@ -70,7 +70,7 @@ export const Results = ():JSX.Element => {
               className='btn btn-info' 
               onClick={() => {
                   navigator.clipboard.writeText(localStorage.link) 
-                  SweetAlert(['Link Copied!!', infoViewState?.origen + ' to ' + infoViewState?.destiny])
+                  SweetAlert(['Link Copied!!', infoViewState?.origen + ' to ' + infoViewState?.destiny, 'success'])
               }}>
 
             Copy and Share the Link with your Friends 
