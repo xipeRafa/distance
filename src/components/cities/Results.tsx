@@ -8,24 +8,27 @@ import { useCity } from '../../hooks'
 export const Results = ():JSX.Element => {
 
 
-  const { dataCityGet, originToDestinyValState, infoViewState, dateAndPassengersState, intersState, SweetAlert } = useCity()
+    const { dataCityGet, originToDestinyValState, infoViewState, dateAndPassengersState, intersState, SweetAlert } = useCity()
 
 
-  useEffect(() => {
-      dataCityGet()
-  }, []) 
-
-console.log(intersState)
+    useEffect(() => {
+        dataCityGet()
+    }, []) 
 
 
 
-  if(originToDestinyValState===undefined || originToDestinyValState===null){
-    return(
-        <p style={{width:'80%',marginLeft:'10%'}}>
-              <Link to="/cities" className='mx-5'>No One Results, Return to Cities </Link>
-        </p>
-      )
+
+
+    if(originToDestinyValState===undefined || originToDestinyValState===null){
+        return(
+            <p style={{width:'80%',marginLeft:'10%'}}>
+                <Link to="/cities" className='mx-5'>No One Results, Return to Cities </Link>
+            </p>
+        )
     } 
+
+
+  
     
 
 
@@ -66,7 +69,7 @@ console.log(intersState)
         <button 
               className='btn btn-info' 
               onClick={() => {
-                  navigator.clipboard.writeText(window.location.href) 
+                  navigator.clipboard.writeText(localStorage.link) 
                   SweetAlert(['Link Copied!!', infoViewState?.origen + ' to ' + infoViewState?.destiny])
               }}>
 

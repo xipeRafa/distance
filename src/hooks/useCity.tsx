@@ -18,11 +18,11 @@ export const useCity = () => {
   
 
   //"warning", "error", "success","info"
-  function SweetAlertError(error){
+  function SweetAlertError(error:object){
       dispatch(somethingWentWrong(['Something Went Wrong', error?.response?.data?.errors[0]?.msg || 'working', 'error']))
   }
 
-  function SweetAlert(error){
+  function SweetAlert(error:string[]){
     dispatch(somethingWentWrong([error[0], error[1], error[2]]))
   }
 
@@ -34,21 +34,35 @@ export const useCity = () => {
 
   const dataCityGet:Function  = async () => {
 
-    let searching = window.location.search
+      if(localStorage.data?.at(0) === '{'){
 
-    try { 
-        const { data } = await axiosApi.get(`/cities${searching}`)
+          let dataLS = JSON.parse(localStorage.data)
 
-        dispatch(intersDataPush([data.intersKMS]))
-          
-        dispatch(originToDestinyValView(data.originToDestinyVal)) 
-        dispatch(infoView(data.post)) 
-        dispatch(dateAndPassengersView(data.dp))
+          dispatch(intersDataPush([dataLS.intersKMS]))          
+          dispatch(originToDestinyValView(dataLS.originToDestinyVal)) 
+          dispatch(infoView(dataLS.post)) 
+          dispatch(dateAndPassengersView(dataLS.dp))
 
-    } catch (error) {
-        SweetAlertError(error)
-        errorConsoleCatch('datacityGet:',error)
-    }  
+          return
+      } 
+
+              
+      try { 
+          let searching = window.location.search
+          const { data } = await axiosApi.get(`/cities${searching}`)
+
+          localStorage.data = JSON.stringify(data)
+
+          dispatch(intersDataPush([data.intersKMS]))
+          dispatch(originToDestinyValView(data.originToDestinyVal)) 
+          dispatch(infoView(data.post)) 
+          dispatch(dateAndPassengersView(data.dp))
+          localStorage.link = window.location.href
+      } catch (error) {
+          SweetAlertError(error)
+          errorConsoleCatch('datacityGet:',error)
+          localStorage.done = 'noCall'
+      }
 
   }
 
@@ -69,7 +83,6 @@ type PostDTO ={
 const postCitySearch = async (finding:string) => {
       
    try {
-
         const {data}  = await axiosApi.post('/cities/search', {finding})
         dispatch(cityDataPush(data))
     }catch (error) {  
@@ -77,6 +90,7 @@ const postCitySearch = async (finding:string) => {
         SweetAlertError(error)
         errorConsoleCatch(error) 
     }  
+
 }
 
 
