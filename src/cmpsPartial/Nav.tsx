@@ -11,15 +11,15 @@ export const Nav = ():JSX.Element => {
 
         <span className="navbar-brand">
             <i className="fas fa-calendar-alt"></i>&nbsp;
-            Get Distance From
+            <Link style={{color:"white"}} to="/cities" className='me-3'> Get Distance </Link>
         </span>
 
           <div>
             <span>
               {
                 location.pathname === '/cities' 
-                ? <Link style={{color:"white"}} to="/results" className='mx-5'> Results </Link>
-                : <Link style={{color:"white"}} to="/cities" className='mx-5'> Cities </Link>
+                ? <Link style={{color:"white"}} to="/results" className='me-3'> Results </Link>
+                : <Link style={{color:"white"}} to="/cities" className='me-3'> Cities </Link>
               }
             </span>
           </div>
