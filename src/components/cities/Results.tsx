@@ -1,12 +1,14 @@
 
 
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useCity } from '../../hooks'
-
+import CopyToClipboard from "react-copy-to-clipboard";
 
 export const Results = ():JSX.Element => {
 
+    const[urlState, setUrlState]=useState('')
+console.log(urlState)
 
     const { dataCityGet, originToDestinyValState, infoViewState, dateAndPassengersState, intersState, SweetAlert } = useCity()
 
@@ -27,11 +29,15 @@ export const Results = ():JSX.Element => {
         )
     } 
 
-
+    const handleShort =()=>{
+        let url = `https://api.shrtco.de/v2/shorten?url=${localStorage.link}`
   
-    
+        fetch(url)
+          .then(e => e.json())
+          .then(e => setUrlState(e.result.full_share_link))
+          .catch(error => console.log('handleShort >>>', error))
 
-
+    }
 
   return (
     <div style={{width:'80%', marginLeft:'10%'}}>
@@ -67,7 +73,7 @@ export const Results = ():JSX.Element => {
         <br />
 
         <button 
-              className='btn btn-info' 
+              className='btn btn-info mb-4' 
               onClick={() => {
                   navigator.clipboard.writeText(localStorage.link) 
                   SweetAlert(['Link Copied!!', infoViewState?.origen + ' to ' + infoViewState?.destiny, 'success'])
@@ -75,6 +81,12 @@ export const Results = ():JSX.Element => {
 
             Copy and Share the Link with your Friends 
         </button>
+<br />
+         <CopyToClipboard text={urlState}>
+            <button onClick={handleShort}  className='btn btn-secondary'>
+                Copy Short URL to Clipboard
+            </button>
+        </CopyToClipboard> 
 
     </div>
   )
