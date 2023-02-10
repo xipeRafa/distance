@@ -52,7 +52,6 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
 
     const onSubmitCities = (event:FormElement): void => {
         event.preventDefault();
-        localStorage.data = 'free'
 
         if( Object.values(restStateInters).some(el => el === '') ||  
             Object.values(state).some(el => el === 'city never can not find it') ){
@@ -84,7 +83,7 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
             return
         } 
 
-       
+        localStorage.data = 'free'
 
         setTimeout(() => {
             let arrayState = Object.entries(state)
