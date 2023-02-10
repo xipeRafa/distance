@@ -3,7 +3,7 @@
 import {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useCity } from '../../hooks'
-import CopyToClipboard from "react-copy-to-clipboard";
+
 
 export const Results = ():JSX.Element => {
 
@@ -29,15 +29,6 @@ console.log(urlState)
         )
     } 
 
-    const handleShort =()=>{
-        let url = `https://api.shrtco.de/v2/shorten?url=${localStorage.link}`
-  
-        fetch(url)
-          .then(e => e.json())
-          .then(e => setUrlState(e.result.full_share_link))
-          .catch(error => console.log('handleShort >>>', error))
-
-    }
 
   return (
     <div style={{width:'80%', marginLeft:'10%'}}>
@@ -81,12 +72,6 @@ console.log(urlState)
 
             Copy and Share the Link with your Friends 
         </button>
-<br />
-         <CopyToClipboard text={urlState}>
-            <button onClick={handleShort}  className='btn btn-secondary'>
-                Copy Short URL to Clipboard
-            </button>
-        </CopyToClipboard> 
 
     </div>
   )
