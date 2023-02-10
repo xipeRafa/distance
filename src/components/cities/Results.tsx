@@ -22,7 +22,7 @@ export const Results = ():JSX.Element => {
     if(originToDestinyValState===undefined || originToDestinyValState===null){
         return(
             <p style={{width:'80%',marginLeft:'10%'}}>
-                <Link to="/cities" className='mx-5'>No One Results, Return to Cities </Link>
+                <Link to="/cities" className='mx-5'>No One Results Return to Cities </Link>
             </p>
         )
     } 

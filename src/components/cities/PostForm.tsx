@@ -46,7 +46,7 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
     const { origen, destiny, inter1, ...restStateInters} = state
     const { date, passengers } = dateAndPassengers
 
-    
+
     type FormElement = React.FormEvent<HTMLFormElement>
   
 
@@ -56,31 +56,35 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
 
         if( Object.values(restStateInters).some(el => el === '') ||  
             Object.values(state).some(el => el === 'city never can not find it') ){
-                
-                let er = Object.values(restStateInters).findIndex(el => el === '' ) 
-                let k = Object.keys(restStateInters)[er] 
 
-                let u = k
-                if(k === undefined){
-                    u = 'letter'
-                }
+                let emptyInterIndex = Object.values(restStateInters).findIndex(el => el === '' ) 
+                let emptyInter = Object.keys(restStateInters)[emptyInterIndex] 
 
-                let er2 = Object.values(restStateInters).findIndex(el => el === error ) 
-                let k2 = Object.keys(restStateInters)[er2] 
+                let emptyInterAlert  
+                    emptyInter === undefined ? emptyInterAlert = 'Letter' : emptyInterAlert = emptyInter
+                    
 
-                let u2 = k2
-                if(k2 === undefined){
-                    u2 = 'type'
-                }
+                let errorInterIndex = Object.values(restStateInters).findIndex(el => el === error ) 
+                let errorInter = Object.keys(restStateInters)[errorInterIndex] 
 
-            SweetAlert(['A City Never Can Not Find It...',`Check <b>${u}</b> and/or <b>${u2}</b> please`, 'warning'])
+                let errorInterAlert  
+                    errorInter === undefined ? errorInterAlert = 'Type' : errorInterAlert = errorInter
+
+            SweetAlert(['A City Never Can Not Find It...',`Check <b>${emptyInterAlert}</b> and/or <b>${errorInterAlert}</b> please`, 'warning']) 
+            return
+        }
+
+        if( date === '' ){
+            SweetAlert(['Empty Field', 'Select the Date', 'warning'])
             return
         }
 
         if( passengers.includes('e') || passengers.includes('.') || Number(passengers)<1 || Number(passengers)>100){
-            SweetAlert(['no more that 100 or lees than 0', 'select the Right Number of passengers', 'warning'])
+            SweetAlert(['no more that 100 or lees than 1', 'select the Right Number of passengers', 'warning'])
             return
         } 
+
+       
 
         setTimeout(() => {
             let arrayState = Object.entries(state)
@@ -88,7 +92,7 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
 
             let array = [...arrayState, ...arrayDateAnd]
 
-                let findThis = ''
+            let findThis = ''
 
             for (let index = 0; index < array.length; index++) {
                 const key = array[index][0];
@@ -153,7 +157,6 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
 
     const [inters, setInters]=useState([])
 
-
     const addObject =()=>{
         let keys:string[] = Object.keys(state)
         let newK:string = 'inter'.concat(String(keys.length -1))
@@ -178,19 +181,27 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
         <div className="col-md-6 login-form-1 mt-4">
 
             { !bool && <>
-                <p><button onClick={addObject} className='btn btn-info text-white'>+</button>{' '} Add more inter cities </p>
-                <p><button onClick={removeObject} className="btn btn-danger rot" >|</button>{' '} Remove inter cities </p>
+                <label htmlFor="addFor">
+                    <button onClick={addObject} id='addFor' className='btn text-white me-3 add'>+</button>
+                    Add more Inter Cities 
+                </label>
+                {inters.length > 0 &&
+                <label htmlFor="removeFor" className='mt-3'>
+                    <button onClick={removeObject} id='removeFor' className="btn text-white rot me-3 remove" >|</button>
+                    Remove Inter Cities 
+                </label>}
+                <hr  className='mb-0'/>
             </>} 
           
 
-            <form onSubmit={onSubmitCities}>
+            <form onSubmit={onSubmitCities} style={{border:'0px solid '}}>
     
 
-                <label>Select your city Origin </label>
+                <label>Select your Origin City</label>
                 <input 
                     list="origen" 
                     onChange={handleInputChange}  
-                    className="form-control mb-2" 
+                    className="form-control mb-3" 
                     name='origen'
                     placeholder="origin"
                     autoComplete='off'
@@ -211,11 +222,11 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
 
 
             
-                <label>Select your city Destiny </label>        
+                <label>Select your Destiny City </label>        
                 <input 
                     list="destiny" 
                     onChange={handleInputChange} 
-                    className="form-control mb-2" 
+                    className="form-control mb-3" 
                     name='destiny' 
                     placeholder="destiny"
                     autoComplete='off'
@@ -237,12 +248,12 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
 
 
             { !bool && <>
-                <label>Select your city Inter (OPTIONAL)</label>
+                <label>Select your Inter City (OPTIONAL)</label>
 
                 <input 
                     list="inter1" 
                     onChange={handleInputChange} 
-                    className="form-control mb-2" 
+                    className="form-control mb-3" 
                     name='inter1' 
                     placeholder="inter1"
                     autoComplete='off'
@@ -262,12 +273,12 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
                     
                 {inters.flat().map((el, i) => (
                     <div key={i+'@#$'}>
-                        <label>Select your city Inter {el} </label>
+                        <label>Select your Inter City {el} </label>
 
                         <input 
                             list={el} 
                             onChange={handleInputChange} 
-                            className="form-control mb-2" 
+                            className="form-control mb-3" 
                             name={el} 
                             placeholder={el}
                             autoComplete='off'
@@ -292,12 +303,11 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
 
                 <hr />
 
-                <div className="form-group mb-2">{/*  */}
+                <div className="form-group mb-3">{/*  */}
                     <input
                         type='date'
                         min={new Date().toISOString().split("T")[0]}
                         className="form-control"
-                        placeholder="date"
                         name="date"
                         value={date}
                         onChange={handleInputChange}
@@ -305,11 +315,11 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
                 </div>
 
                 { !bool && 
-                <div className="form-group mb-2">
+                <div className="form-group mb-4">
                     <input
                         type='number'
-                        min='1'
-                        max='100' 
+                    /*  min='1'
+                        max='100' */
                         //step="any"
                         className="form-control"
                         placeholder="passengers"
@@ -321,11 +331,11 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
             
 
 
-                <div className="d-grid gap-2">
+                <div className="d-grid gap-2 ">
                     <input 
                         type="submit" 
-                        className={bool ? "btnSubmitPost2" : "btnSubmitPost"} 
-                        value={bool ? 'Disabled':'Send'} 
+                        className={bool ? "btnSubmitPost2 btn mt-4" : "btnSubmitPost btn"} 
+                        value={bool ? 'Disabled':'Click to Send'} 
                         disabled={bool}
                     />
                 </div> 
