@@ -130,21 +130,19 @@ export const PostForm = ({ citiesState, SweetAlert, postCitySearch }:PropsPostFo
 
         if(name !== 'date' && name !== 'passengers'){ 
             let v = value.trim()[0]?.toUpperCase() + value.substring(1).split(" ").join("_")
-            let post = [v]
             
             if(v.includes('_')){
                 let i = v.indexOf("_") +1
                 let letter = v[i]
-                let up = v.replace(letter, letter?.toUpperCase())
-                post.splice(0, 1, up)
+                v = v.replace(letter, letter?.toUpperCase())
             } 
 
-            setState({ ...state, [name]: post[0]})
+            setState({ ...state, [name]: v})
 
             if(value.length > 3 && citiesState.length === 0){
                 setState({ ...state, [name]: error }) // -=-=-=-=- ERRO
             }
-            postCitySearch(post[0])
+            postCitySearch(v)
         }
           
         setTimeout(() => {    
