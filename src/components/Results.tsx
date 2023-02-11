@@ -2,7 +2,7 @@
 
 import {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
-import { useCity } from '../../hooks'
+import { useCity } from '../hooks'
 
 
 export const Results = ():JSX.Element => {
@@ -14,8 +14,6 @@ export const Results = ():JSX.Element => {
     useEffect(() => {
         dataCityGet()
     }, []) 
-
-
 
 
 
@@ -52,7 +50,7 @@ export const Results = ():JSX.Element => {
             if(el === ''){
               return
             }else{
-              return <p key={i}> <b>inter{i+1} - </b> {el.split("_").join(" ")} : {Number(Object.values(intersState[0])[i])?.toFixed(3)} KMs </p>
+              return <p key={i}> <b> inter{i+1} - </b> {el.split("_").join(" ")} : { Number(Object.values(intersState[0])[i])?.toFixed(3) } KMs </p>
             }
           })
         }   

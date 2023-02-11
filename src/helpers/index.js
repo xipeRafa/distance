@@ -5,6 +5,6 @@ export * from './errorConsoleCatch';
 
 
 
-export * from './haversine'
+
 
 
