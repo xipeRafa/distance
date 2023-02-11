@@ -7,8 +7,6 @@ import { useCity } from '../../hooks'
 
 export const Results = ():JSX.Element => {
 
-    const[urlState, setUrlState]=useState('')
-console.log(urlState)
 
     const { dataCityGet, originToDestinyValState, infoViewState, dateAndPassengersState, intersState, SweetAlert } = useCity()
 
